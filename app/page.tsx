@@ -1,19 +1,15 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ParticipantsTable from "@/components/participants-table";
 import LessonsTable from "@/components/lessons-table";
 
 export default function Home() {
+  const [activeSection, setActiveSection] = useState<
+    "participants" | "lessons" | null
+  >(null);
+
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -29,99 +25,37 @@ export default function Home() {
         {/* Participants Management Section */}
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold">Participants Management</h2>
-          <ParticipantsTable />
+          <div className="flex gap-4">
+            <Button
+              onClick={() =>
+                setActiveSection(
+                  activeSection === "participants" ? null : "participants"
+                )
+              }
+              variant={activeSection === "participants" ? "default" : "outline"}
+            >
+              {activeSection === "participants"
+                ? "Hide Participants"
+                : "Show Participants"}
+            </Button>
+          </div>
+          {activeSection === "participants" && <ParticipantsTable />}
         </div>
 
         {/* Lessons Management Section */}
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold">Lessons Management</h2>
-          <LessonsTable />
-        </div>
-
-        {/* Setup Status Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>shadcn/ui Test</CardTitle>
-              <CardDescription>
-                Testing that components are working properly
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="test-input">Test Input</Label>
-                <Input id="test-input" placeholder="Type something..." />
-              </div>
-              <Button className="w-full" variant="outline">
-                Test Button
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Setup Status</CardTitle>
-              <CardDescription>Implementation Progress</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Next.js 15 with TypeScript</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Tailwind CSS v4</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">shadcn/ui Components</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Cosmos DB Integration</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Participant Management</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Features</CardTitle>
-              <CardDescription>Current Capabilities</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Create Participants</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">View Participants</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Form Validation</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Error Handling</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✅</span>
-                <span className="text-sm">Lesson Management</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="text-center">
-          <p className="text-sm text-muted-foreground">
-            Server running on{" "}
-            <code className="bg-muted px-2 py-1 rounded">localhost:3000</code>
-          </p>
+          <div className="flex gap-4">
+            <Button
+              onClick={() =>
+                setActiveSection(activeSection === "lessons" ? null : "lessons")
+              }
+              variant={activeSection === "lessons" ? "default" : "outline"}
+            >
+              {activeSection === "lessons" ? "Hide Lessons" : "Show Lessons"}
+            </Button>
+          </div>
+          {activeSection === "lessons" && <LessonsTable />}
         </div>
       </div>
     </div>
