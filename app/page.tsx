@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,20 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import ParticipantForm from "@/components/participant-form";
+import { Button } from "@/components/ui/button";
 import ParticipantsTable from "@/components/participants-table";
+import LessonsTable from "@/components/lessons-table";
 
 export default function Home() {
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [showForm, setShowForm] = useState(false);
-
-  const handleParticipantCreated = () => {
-    // Refresh the participants table
-    setRefreshTrigger((prev) => prev + 1);
-    // Hide the form
-    setShowForm(false);
-  };
-
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -39,26 +28,14 @@ export default function Home() {
 
         {/* Participants Management Section */}
         <div className="space-y-6">
-          {/* Toggle Form Button */}
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold">Participants Management</h2>
-            <Button
-              onClick={() => setShowForm(!showForm)}
-              variant={showForm ? "outline" : "default"}
-            >
-              {showForm ? "Cancel" : "Add New Participant"}
-            </Button>
-          </div>
+          <h2 className="text-2xl font-semibold">Participants Management</h2>
+          <ParticipantsTable />
+        </div>
 
-          {/* Participant Form */}
-          {showForm && (
-            <div className="flex justify-center">
-              <ParticipantForm onSuccess={handleParticipantCreated} />
-            </div>
-          )}
-
-          {/* Participants Table */}
-          <ParticipantsTable refreshTrigger={refreshTrigger} />
+        {/* Lessons Management Section */}
+        <div className="space-y-6">
+          <h2 className="text-2xl font-semibold">Lessons Management</h2>
+          <LessonsTable />
         </div>
 
         {/* Setup Status Cards */}
@@ -133,7 +110,7 @@ export default function Home() {
                 <span className="text-sm">Error Handling</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-orange-500">🔄</span>
+                <span className="text-green-500">✅</span>
                 <span className="text-sm">Lesson Management</span>
               </div>
             </CardContent>
