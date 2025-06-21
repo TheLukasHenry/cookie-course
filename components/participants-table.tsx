@@ -92,6 +92,172 @@ interface FormData {
   isActive: boolean;
 }
 
+interface ParticipantFormProps {
+  isEdit?: boolean;
+  formData: FormData;
+  onInputChange: (field: keyof FormData, value: string | boolean) => void;
+  submitMessage?: { type: "success" | "error"; text: string } | null;
+}
+
+// Extracted ParticipantForm component to prevent re-creation on each render
+function ParticipantForm({
+  isEdit = false,
+  formData,
+  onInputChange,
+  submitMessage,
+}: ParticipantFormProps) {
+  return (
+    <div className="grid gap-4 py-4">
+      {submitMessage && (
+        <div
+          className={`p-3 rounded-md border ${
+            submitMessage.type === "success"
+              ? "text-green-600 bg-green-50 border-green-200"
+              : "text-red-600 bg-red-50 border-red-200"
+          }`}
+        >
+          {submitMessage.text}
+        </div>
+      )}
+
+      <div className="space-y-4">
+        <h4 className="font-medium">Basic Information</h4>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name *</Label>
+            <Input
+              id="firstName"
+              value={formData.firstName}
+              onChange={(e) => onInputChange("firstName", e.target.value)}
+              placeholder="Enter first name"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name *</Label>
+            <Input
+              id="lastName"
+              value={formData.lastName}
+              onChange={(e) => onInputChange("lastName", e.target.value)}
+              placeholder="Enter last name"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="email">Email *</Label>
+          <Input
+            id="email"
+            type="email"
+            value={formData.email}
+            onChange={(e) => onInputChange("email", e.target.value)}
+            placeholder="Enter email address"
+            required
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input
+              id="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => onInputChange("phone", e.target.value)}
+              placeholder="Enter phone number"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="age">Age</Label>
+            <Input
+              id="age"
+              type="number"
+              value={formData.age}
+              onChange={(e) => onInputChange("age", e.target.value)}
+              placeholder="Enter age"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="allergies">Allergies</Label>
+          <Textarea
+            id="allergies"
+            value={formData.allergies}
+            onChange={(e) => onInputChange("allergies", e.target.value)}
+            placeholder="Enter allergies separated by commas"
+            rows={2}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="dietaryRestrictions">Dietary Restrictions</Label>
+          <Textarea
+            id="dietaryRestrictions"
+            value={formData.dietaryRestrictions}
+            onChange={(e) =>
+              onInputChange("dietaryRestrictions", e.target.value)
+            }
+            placeholder="Enter dietary restrictions separated by commas"
+            rows={2}
+          />
+        </div>
+
+        <h4 className="font-medium pt-4">Emergency Contact</h4>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="emergencyContactName">Contact Name</Label>
+            <Input
+              id="emergencyContactName"
+              value={formData.emergencyContactName}
+              onChange={(e) =>
+                onInputChange("emergencyContactName", e.target.value)
+              }
+              placeholder="Emergency contact name"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="emergencyContactPhone">Contact Phone</Label>
+            <Input
+              id="emergencyContactPhone"
+              type="tel"
+              value={formData.emergencyContactPhone}
+              onChange={(e) =>
+                onInputChange("emergencyContactPhone", e.target.value)
+              }
+              placeholder="Emergency contact phone"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="emergencyContactRelationship">Relationship</Label>
+          <Input
+            id="emergencyContactRelationship"
+            value={formData.emergencyContactRelationship}
+            onChange={(e) =>
+              onInputChange("emergencyContactRelationship", e.target.value)
+            }
+            placeholder="Relationship to participant"
+          />
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="isActive"
+            checked={formData.isActive}
+            onCheckedChange={(checked) =>
+              onInputChange("isActive", checked as boolean)
+            }
+          />
+          <Label htmlFor="isActive">Active participant</Label>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ParticipantsTable() {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [filteredParticipants, setFilteredParticipants] = useState<
@@ -470,157 +636,6 @@ export default function ParticipantsTable() {
     );
   }
 
-  const ParticipantForm = ({ isEdit = false }: { isEdit?: boolean }) => (
-    <div className="grid gap-4 py-4">
-      {submitMessage && (
-        <div
-          className={`p-3 rounded-md border ${
-            submitMessage.type === "success"
-              ? "text-green-600 bg-green-50 border-green-200"
-              : "text-red-600 bg-red-50 border-red-200"
-          }`}
-        >
-          {submitMessage.text}
-        </div>
-      )}
-
-      <div className="space-y-4">
-        <h4 className="font-medium">Basic Information</h4>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="firstName">First Name *</Label>
-            <Input
-              id="firstName"
-              value={formData.firstName}
-              onChange={(e) => handleInputChange("firstName", e.target.value)}
-              placeholder="Enter first name"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name *</Label>
-            <Input
-              id="lastName"
-              value={formData.lastName}
-              onChange={(e) => handleInputChange("lastName", e.target.value)}
-              placeholder="Enter last name"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="email">Email *</Label>
-          <Input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            placeholder="Enter email address"
-            required
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => handleInputChange("phone", e.target.value)}
-              placeholder="Enter phone number"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="age">Age</Label>
-            <Input
-              id="age"
-              type="number"
-              value={formData.age}
-              onChange={(e) => handleInputChange("age", e.target.value)}
-              placeholder="Enter age"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="allergies">Allergies</Label>
-          <Textarea
-            id="allergies"
-            value={formData.allergies}
-            onChange={(e) => handleInputChange("allergies", e.target.value)}
-            placeholder="Enter allergies separated by commas"
-            rows={2}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="dietaryRestrictions">Dietary Restrictions</Label>
-          <Textarea
-            id="dietaryRestrictions"
-            value={formData.dietaryRestrictions}
-            onChange={(e) =>
-              handleInputChange("dietaryRestrictions", e.target.value)
-            }
-            placeholder="Enter dietary restrictions separated by commas"
-            rows={2}
-          />
-        </div>
-
-        <h4 className="font-medium pt-4">Emergency Contact</h4>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="emergencyContactName">Contact Name</Label>
-            <Input
-              id="emergencyContactName"
-              value={formData.emergencyContactName}
-              onChange={(e) =>
-                handleInputChange("emergencyContactName", e.target.value)
-              }
-              placeholder="Emergency contact name"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="emergencyContactPhone">Contact Phone</Label>
-            <Input
-              id="emergencyContactPhone"
-              type="tel"
-              value={formData.emergencyContactPhone}
-              onChange={(e) =>
-                handleInputChange("emergencyContactPhone", e.target.value)
-              }
-              placeholder="Emergency contact phone"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="emergencyContactRelationship">Relationship</Label>
-          <Input
-            id="emergencyContactRelationship"
-            value={formData.emergencyContactRelationship}
-            onChange={(e) =>
-              handleInputChange("emergencyContactRelationship", e.target.value)
-            }
-            placeholder="Relationship to participant"
-          />
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="isActive"
-            checked={formData.isActive}
-            onCheckedChange={(checked) =>
-              handleInputChange("isActive", checked as boolean)
-            }
-          />
-          <Label htmlFor="isActive">Active participant</Label>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <Card>
       <CardHeader>
@@ -694,7 +709,12 @@ export default function ParticipantsTable() {
                     baking lessons.
                   </DialogDescription>
                 </DialogHeader>
-                <ParticipantForm />
+                <ParticipantForm
+                  isEdit={false}
+                  formData={formData}
+                  onInputChange={handleInputChange}
+                  submitMessage={submitMessage}
+                />
                 <DialogFooter>
                   <Button
                     type="button"
@@ -966,7 +986,12 @@ export default function ParticipantsTable() {
                 Update the participant's information.
               </DialogDescription>
             </DialogHeader>
-            <ParticipantForm isEdit />
+            <ParticipantForm
+              isEdit={true}
+              formData={formData}
+              onInputChange={handleInputChange}
+              submitMessage={submitMessage}
+            />
             <DialogFooter>
               <Button
                 type="button"
