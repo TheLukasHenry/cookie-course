@@ -1,0 +1,17 @@
+# Task ID: 8
+# Title: Develop Complete Participants Management UI
+# Status: pending
+# Dependencies: 3, 6
+# Priority: high
+# Description: Build a comprehensive participants management interface on the home page using shadcn/ui components with full CRUD functionality.
+# Details:
+1. Install additional shadcn/ui components: `npx shadcn@latest add sheet select checkbox`
+2. Enhance participants table with sorting, filtering, and pagination using shadcn/ui Table
+3. Create participant edit/update forms using shadcn/ui Sheet or Dialog components
+4. Implement participant deletion with confirmation using shadcn/ui AlertDialog
+5. Add search and filter functionality
+6. Implement bulk operations for participant management
+7. Add proper loading states and error handling throughout
+
+# Test Strategy:
+Test all participant CRUD operations in the UI and verify data synchronization with the backend

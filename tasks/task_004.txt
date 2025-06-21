@@ -1,0 +1,16 @@
+# Task ID: 4
+# Title: Implement Participants API and UI Component
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Create a simple GET endpoint at /api/participants that returns mock participant data and display this data in a basic UI component on the home page using shadcn/ui Table component.
+# Details:
+1. Install shadcn/ui table component: `npx shadcn@latest add table`
+2. Create `app/api/participants/route.ts` with GET endpoint returning mock participant data
+3. Create participants section in `app/page.tsx` using shadcn/ui Table component
+4. Implement basic error handling and loading states
+5. Test the data flow from API to UI component
+6. Style the table using shadcn/ui theme system
+
+# Test Strategy:
+Verify that participants data displays correctly in the table on the home page and API endpoint returns expected mock data

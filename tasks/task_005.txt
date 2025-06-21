@@ -1,0 +1,17 @@
+# Task ID: 5
+# Title: Implement Participant Creation Flow with Form and POST Endpoint
+# Status: pending
+# Dependencies: 4
+# Priority: high
+# Description: Create a simple POST endpoint at /api/participants and a form component using shadcn/ui Form components with essential fields that submits to this endpoint.
+# Details:
+1. Install shadcn/ui form components: `npx shadcn@latest add form dialog button input label`
+2. Create POST endpoint in `app/api/participants/route.ts` for creating participants
+3. Build participant creation form using shadcn/ui Form, Dialog, Input, and Button components
+4. Add form validation and error handling
+5. Implement form submission with proper state management
+6. Add success feedback using shadcn/ui Alert or Toast components
+7. Refresh participant list after successful creation
+
+# Test Strategy:
+Test form submission creates new participant, displays in table, and shows appropriate success/error messages

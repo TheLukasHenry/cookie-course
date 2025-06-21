@@ -1,0 +1,104 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Next.js Project with TypeScript, Tailwind CSS, and shadcn/ui",
+      "description": "Initialize a new Next.js 15 project with TypeScript, Tailwind CSS, and shadcn/ui library for modern UI components.",
+      "status": "pending",
+      "dependencies": [],
+      "priority": "high",
+      "details": "1. Create new Next.js project: `npx create-next-app@latest cookie-course --typescript --tailwind --app --eslint`\n2. Configure Tailwind CSS with custom CSS variables in `app/globals.css`\n3. Install and configure shadcn/ui: `npx shadcn@latest init`\n4. Install essential shadcn/ui components: `npx shadcn@latest add button card table form input label textarea`\n5. Setup basic folder structure following Next.js App Router conventions\n6. Configure TypeScript with strict mode\n7. Test the setup by running `npm run dev`",
+      "testStrategy": "Verify project runs successfully on localhost:3000 with shadcn/ui components properly styled"
+    },
+    {
+      "id": 2,
+      "title": "Integrate Azure Cosmos DB Connection Layer",
+      "description": "Set up the connection layer to Azure Cosmos DB using @azure/cosmos package for data persistence.",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "high",
+      "details": "1. Install Azure Cosmos DB SDK: `npm install @azure/cosmos`\n2. Create `lib/cosmos.ts` with connection configuration\n3. Setup environment variables for Cosmos DB connection string and database name\n4. Create database utility functions for CRUD operations\n5. Test connection with a simple query\n6. Setup error handling and connection pooling",
+      "testStrategy": "Test database connection by running a simple query to verify successful connection to Azure Cosmos DB"
+    },
+    {
+      "id": 3,
+      "title": "Create Base UI Components and Layout with shadcn/ui",
+      "description": "Build the foundational UI components and layout structure for the cookie-course app using shadcn/ui components.",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "medium",
+      "details": "1. Install additional shadcn/ui components: `npx shadcn@latest add tabs dialog alert-dialog badge`\n2. Create `app/layout.tsx` with global navigation using Tabs component for switching between Participants, Lessons, and Enrollments sections\n3. Create reusable UI components in `components/ui/` directory\n4. Establish CSS variables for consistent theming\n5. Create responsive layout that works on mobile and desktop\n6. Set up loading and error boundary components using shadcn/ui Alert components",
+      "testStrategy": "Verify layout renders correctly with navigation tabs and components are properly styled with shadcn/ui theme"
+    },
+    {
+      "id": 4,
+      "title": "Implement Participants API and UI Component",
+      "description": "Create a simple GET endpoint at /api/participants that returns mock participant data and display this data in a basic UI component on the home page using shadcn/ui Table component.",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "high",
+      "details": "1. Install shadcn/ui table component: `npx shadcn@latest add table`\n2. Create `app/api/participants/route.ts` with GET endpoint returning mock participant data\n3. Create participants section in `app/page.tsx` using shadcn/ui Table component\n4. Implement basic error handling and loading states\n5. Test the data flow from API to UI component\n6. Style the table using shadcn/ui theme system",
+      "testStrategy": "Verify that participants data displays correctly in the table on the home page and API endpoint returns expected mock data"
+    },
+    {
+      "id": 5,
+      "title": "Implement Participant Creation Flow with Form and POST Endpoint",
+      "description": "Create a simple POST endpoint at /api/participants and a form component using shadcn/ui Form components with essential fields that submits to this endpoint.",
+      "status": "pending",
+      "dependencies": [4],
+      "priority": "high",
+      "details": "1. Install shadcn/ui form components: `npx shadcn@latest add form dialog button input label`\n2. Create POST endpoint in `app/api/participants/route.ts` for creating participants\n3. Build participant creation form using shadcn/ui Form, Dialog, Input, and Button components\n4. Add form validation and error handling\n5. Implement form submission with proper state management\n6. Add success feedback using shadcn/ui Alert or Toast components\n7. Refresh participant list after successful creation",
+      "testStrategy": "Test form submission creates new participant, displays in table, and shows appropriate success/error messages"
+    },
+    {
+      "id": 6,
+      "title": "Implement Participant Management API Routes",
+      "description": "Build comprehensive CRUD API endpoints for participant management with full Azure Cosmos DB integration.",
+      "status": "pending",
+      "dependencies": [2, 5],
+      "priority": "high",
+      "details": "1. Extend `app/api/participants/route.ts` with full CRUD operations\n2. Create `app/api/participants/[id]/route.ts` for individual participant operations\n3. Implement GET, POST, PUT, DELETE operations with Cosmos DB\n4. Add proper error handling and validation\n5. Implement participant schema validation\n6. Add request/response logging\n7. Test all endpoints with various scenarios",
+      "testStrategy": "Test all CRUD operations through API endpoints and verify data persistence in Azure Cosmos DB"
+    },
+    {
+      "id": 7,
+      "title": "Implement Lesson Management API Routes",
+      "description": "Create comprehensive CRUD API endpoints for lesson management with Azure Cosmos DB integration.",
+      "status": "pending",
+      "dependencies": [2],
+      "priority": "medium",
+      "details": "1. Create `app/api/lessons/route.ts` with GET and POST endpoints\n2. Create `app/api/lessons/[id]/route.ts` for individual lesson operations\n3. Implement full CRUD operations with Cosmos DB integration\n4. Add lesson schema validation and error handling\n5. Implement business logic for lesson scheduling\n6. Add support for lesson status management\n7. Test all endpoints thoroughly",
+      "testStrategy": "Verify all lesson CRUD operations work correctly and data persists in Azure Cosmos DB"
+    },
+    {
+      "id": 8,
+      "title": "Develop Complete Participants Management UI",
+      "description": "Build a comprehensive participants management interface on the home page using shadcn/ui components with full CRUD functionality.",
+      "status": "pending",
+      "dependencies": [3, 6],
+      "priority": "high",
+      "details": "1. Install additional shadcn/ui components: `npx shadcn@latest add sheet select checkbox`\n2. Enhance participants table with sorting, filtering, and pagination using shadcn/ui Table\n3. Create participant edit/update forms using shadcn/ui Sheet or Dialog components\n4. Implement participant deletion with confirmation using shadcn/ui AlertDialog\n5. Add search and filter functionality\n6. Implement bulk operations for participant management\n7. Add proper loading states and error handling throughout",
+      "testStrategy": "Test all participant CRUD operations in the UI and verify data synchronization with the backend"
+    },
+    {
+      "id": 9,
+      "title": "Develop Complete Lessons Management UI",
+      "description": "Create a comprehensive lessons management interface on the home page using shadcn/ui components with full CRUD capabilities.",
+      "status": "pending",
+      "dependencies": [3, 7],
+      "priority": "medium",
+      "details": "1. Install shadcn/ui date picker: `npx shadcn@latest add calendar popover`\n2. Create lessons section on home page using shadcn/ui Card and Table components\n3. Build lesson creation/edit forms with all required fields using shadcn/ui Form components\n4. Implement lesson scheduling interface with date/time pickers\n5. Add lesson status management and filtering\n6. Create lesson details view with participant enrollment information\n7. Add proper validation and error handling",
+      "testStrategy": "Verify all lesson management operations work correctly in the UI with proper data validation and persistence"
+    },
+    {
+      "id": 10,
+      "title": "Implement Enrollment Management System",
+      "description": "Build the enrollment system connecting participants and lessons with comprehensive UI using shadcn/ui components.",
+      "status": "pending",
+      "dependencies": [8, 9],
+      "priority": "medium",
+      "details": "1. Install shadcn/ui components: `npx shadcn@latest add badge select multi-select`\n2. Create enrollment API endpoints in `app/api/enrollments/`\n3. Build enrollment management interface using shadcn/ui components\n4. Implement participant-lesson enrollment with capacity checking\n5. Create enrollment status tracking and management\n6. Add enrollment history and reporting features\n7. Implement enrollment cancellation and waitlist functionality\n8. Add enrollment statistics and analytics dashboard",
+      "testStrategy": "Test complete enrollment workflow from participant selection to lesson assignment and verify all enrollment data is properly managed"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# Task ID: 1
+# Title: Setup Next.js Project with TypeScript, Tailwind CSS, and shadcn/ui
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Initialize a new Next.js 15 project with TypeScript, Tailwind CSS, and shadcn/ui library for modern UI components.
+# Details:
+1. Create new Next.js project: `npx create-next-app@latest cookie-course --typescript --tailwind --app --eslint`
+2. Configure Tailwind CSS with custom CSS variables in `app/globals.css`
+3. Install and configure shadcn/ui: `npx shadcn@latest init`
+4. Install essential shadcn/ui components: `npx shadcn@latest add button card table form input label textarea`
+5. Setup basic folder structure following Next.js App Router conventions
+6. Configure TypeScript with strict mode
+7. Test the setup by running `npm run dev`
+
+# Test Strategy:
+Verify project runs successfully on localhost:3000 with shadcn/ui components properly styled

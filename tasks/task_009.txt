@@ -1,0 +1,17 @@
+# Task ID: 9
+# Title: Develop Complete Lessons Management UI
+# Status: pending
+# Dependencies: 3, 7
+# Priority: medium
+# Description: Create a comprehensive lessons management interface on the home page using shadcn/ui components with full CRUD capabilities.
+# Details:
+1. Install shadcn/ui date picker: `npx shadcn@latest add calendar popover`
+2. Create lessons section on home page using shadcn/ui Card and Table components
+3. Build lesson creation/edit forms with all required fields using shadcn/ui Form components
+4. Implement lesson scheduling interface with date/time pickers
+5. Add lesson status management and filtering
+6. Create lesson details view with participant enrollment information
+7. Add proper validation and error handling
+
+# Test Strategy:
+Verify all lesson management operations work correctly in the UI with proper data validation and persistence

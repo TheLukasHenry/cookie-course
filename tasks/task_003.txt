@@ -1,0 +1,16 @@
+# Task ID: 3
+# Title: Create Base UI Components and Layout with shadcn/ui
+# Status: pending
+# Dependencies: 1
+# Priority: medium
+# Description: Build the foundational UI components and layout structure for the cookie-course app using shadcn/ui components.
+# Details:
+1. Install additional shadcn/ui components: `npx shadcn@latest add tabs dialog alert-dialog badge`
+2. Create `app/layout.tsx` with global navigation using Tabs component for switching between Participants, Lessons, and Enrollments sections
+3. Create reusable UI components in `components/ui/` directory
+4. Establish CSS variables for consistent theming
+5. Create responsive layout that works on mobile and desktop
+6. Set up loading and error boundary components using shadcn/ui Alert components
+
+# Test Strategy:
+Verify layout renders correctly with navigation tabs and components are properly styled with shadcn/ui theme
