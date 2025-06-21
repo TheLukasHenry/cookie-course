@@ -240,6 +240,14 @@ export default function ParticipantsTable() {
     field: keyof FormData,
     value: string | boolean
   ) => {
+    // Special handling for age field to prevent NaN values
+    if (field === "age" && typeof value === "string") {
+      // Only allow numeric input for age, or empty string
+      if (value !== "" && (isNaN(Number(value)) || Number(value) < 0)) {
+        return; // Don't update if invalid
+      }
+    }
+
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (submitMessage) {
       setSubmitMessage(null);
@@ -256,7 +264,10 @@ export default function ParticipantsTable() {
         lastName: formData.lastName,
         email: formData.email,
         phone: formData.phone || undefined,
-        age: formData.age ? parseInt(formData.age) : undefined,
+        age:
+          formData.age && !isNaN(parseInt(formData.age))
+            ? parseInt(formData.age)
+            : undefined,
         allergies: formData.allergies
           .split(",")
           .map((a) => a.trim())
@@ -335,7 +346,10 @@ export default function ParticipantsTable() {
       lastName: participant.lastName,
       email: participant.email,
       phone: participant.phone || "",
-      age: participant.age?.toString() || "",
+      age:
+        participant.age && !isNaN(participant.age)
+          ? participant.age.toString()
+          : "",
       allergies: participant.allergies?.join(", ") || "",
       dietaryRestrictions: participant.dietaryRestrictions?.join(", ") || "",
       emergencyContactName: participant.emergencyContact?.name || "",
