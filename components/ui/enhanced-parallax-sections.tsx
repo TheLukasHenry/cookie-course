@@ -1,81 +1,145 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import NavigationBar from "@/components/ui/navigation-bar";
-import ParticipantsTable from "@/components/participants-table";
-import LessonsTable from "@/components/lessons-table";
-import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Users,
-  Calendar,
-  ChefHat,
-  BookOpen,
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
   Star,
   Clock,
+  ChefHat,
+  Users,
   Mail,
   Phone,
   MapPin,
   Send,
+  BookOpen,
   UserPlus,
 } from "lucide-react";
-import { useBackgroundParallax } from "@/hooks/useParallax";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useBackgroundParallax } from "@/hooks/useParallax";
 
-// Enhanced animated text cycle component
-function AnimatedTextCycle({
-  words,
-  interval = 3000,
-  className = "",
-}: {
+interface AnimatedTextCycleProps {
   words: string[];
   interval?: number;
   className?: string;
-}) {
+}
+
+function AnimatedTextCycle({
+  words,
+  interval = 5000,
+  className = "",
+}: AnimatedTextCycleProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [width, setWidth] = useState("auto");
+  const measureRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (measureRef.current) {
+      const elements = measureRef.current.children;
+      if (elements.length > currentIndex) {
+        const newWidth = elements[currentIndex].getBoundingClientRect().width;
+        setWidth(`${newWidth}px`);
+      }
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % words.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
     }, interval);
+
     return () => clearInterval(timer);
-  }, [words.length, interval]);
+  }, [interval, words.length]);
 
   const containerVariants = {
-    hidden: { y: -20, opacity: 0, filter: "blur(8px)" },
-    visible: { y: 0, opacity: 1, filter: "blur(0px)" },
-    exit: { y: 20, opacity: 0, filter: "blur(8px)" },
+    hidden: {
+      y: -20,
+      opacity: 0,
+      filter: "blur(8px)",
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      y: 20,
+      opacity: 0,
+      filter: "blur(8px)",
+      transition: {
+        duration: 0.3,
+        ease: "easeIn",
+      },
+    },
   };
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.span
-        key={currentIndex}
-        className={`inline-block font-bold ${className}`}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
+    <>
+      <div
+        ref={measureRef}
+        aria-hidden="true"
+        className="absolute opacity-0 pointer-events-none"
+        style={{ visibility: "hidden" }}
       >
-        {words[currentIndex]}
+        {words.map((word, i) => (
+          <span key={i} className={`font-bold ${className}`}>
+            {word}
+          </span>
+        ))}
+      </div>
+
+      <motion.span
+        className="relative inline-block"
+        animate={{
+          width,
+          transition: {
+            type: "spring",
+            stiffness: 150,
+            damping: 15,
+            mass: 1.2,
+          },
+        }}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={currentIndex}
+            className={`inline-block font-bold ${className}`}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            {words[currentIndex]}
+          </motion.span>
+        </AnimatePresence>
       </motion.span>
-    </AnimatePresence>
+    </>
   );
 }
 
-// Enhanced glowing gradient button
+interface GlowingGradientButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  variant?: "primary" | "secondary";
+}
+
 function GlowingGradientButton({
   children,
   className = "",
   variant = "primary",
   ...props
-}: {
-  children: React.ReactNode;
-  className?: string;
-  variant?: "primary" | "secondary";
-  [key: string]: any;
-}) {
+}: GlowingGradientButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const gradientClass =
@@ -93,22 +157,24 @@ function GlowingGradientButton({
       <div
         className={`absolute inset-0 bg-gradient-to-r ${gradientClass} rounded-lg`}
       />
+
       <div
         className={`absolute inset-0.5 bg-gray-900/90 rounded-md transition-opacity duration-500 ${
           isHovered ? "opacity-70" : "opacity-100"
         }`}
       />
+
       <div
         className={`absolute inset-0 bg-gradient-to-r ${gradientClass} rounded-lg blur-xl transition-opacity duration-500 ${
           isHovered ? "opacity-100" : "opacity-0"
         }`}
       />
+
       <span className="relative z-10">{children}</span>
     </button>
   );
 }
 
-// Enhanced glass morphism card
 function GlassMorphismCard({
   children,
   className = "",
@@ -133,8 +199,7 @@ function GlassMorphismCard({
   );
 }
 
-// Enhanced Hero Section with Parallax Background (Content on LEFT)
-const EnhancedHeroSection = () => {
+export function EnhancedHeroSection() {
   const parallaxRef = useBackgroundParallax({ speed: 0.8 });
 
   const bakingWords = [
@@ -277,10 +342,9 @@ const EnhancedHeroSection = () => {
       </div>
     </section>
   );
-};
+}
 
-// Enhanced About Section with Parallax Background
-const EnhancedAboutSection = () => {
+export function EnhancedAboutSection() {
   const parallaxRef = useBackgroundParallax({ speed: 0.7 });
 
   const features = [
@@ -443,10 +507,9 @@ const EnhancedAboutSection = () => {
       </div>
     </section>
   );
-};
+}
 
-// Enhanced Contact Section with Parallax Background
-const EnhancedContactSection = () => {
+export function EnhancedContactSection() {
   const parallaxRef = useBackgroundParallax({ speed: 0.6 });
   const [formData, setFormData] = useState({
     name: "",
@@ -654,181 +717,5 @@ const EnhancedContactSection = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-export default function Home() {
-  const [showParticipants, setShowParticipants] = useState(false);
-  const [showLessons, setShowLessons] = useState(false);
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <NavigationBar />
-
-      {/* Hero Section */}
-      <section id="hero">
-        <EnhancedHeroSection />
-      </section>
-
-      {/* Participants Section */}
-      <section
-        id="participants"
-        className="min-h-screen flex flex-col justify-center py-20 px-4"
-      >
-        <div className="max-w-7xl mx-auto w-full">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-              Participants
-            </h2>
-            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Manage and track all course participants with our comprehensive
-              management system.
-            </p>
-
-            <Button
-              onClick={() => setShowParticipants(!showParticipants)}
-              size="lg"
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg transition-all duration-300 transform hover:scale-105"
-            >
-              <Users className="w-6 h-6 mr-2" />
-              {showParticipants ? "Hide Participants" : "Show Participants"}
-            </Button>
-          </motion.div>
-
-          <AnimatePresence>
-            {showParticipants ? (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5 }}
-                className="overflow-hidden"
-              >
-                <ParticipantsTable />
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-6"
-              >
-                <motion.div className="bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                  <Users className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Active Students
-                  </h3>
-                  <p className="text-4xl font-bold text-blue-400">847</p>
-                </motion.div>
-                <motion.div className="bg-gradient-to-br from-purple-500/20 to-pink-600/20 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                  <Calendar className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Enrolled This Month
-                  </h3>
-                  <p className="text-4xl font-bold text-purple-400">124</p>
-                </motion.div>
-                <motion.div className="bg-gradient-to-br from-pink-500/20 to-red-600/20 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                  <ChefHat className="w-12 h-12 text-pink-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Completion Rate
-                  </h3>
-                  <p className="text-4xl font-bold text-pink-400">94%</p>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
-
-      {/* Lessons Section */}
-      <section
-        id="lessons"
-        className="min-h-screen flex flex-col justify-center py-20 px-4"
-      >
-        <div className="max-w-7xl mx-auto w-full">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400">
-              Lessons
-            </h2>
-            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Comprehensive lesson management system for scheduling and tracking
-              course progress.
-            </p>
-
-            <Button
-              onClick={() => setShowLessons(!showLessons)}
-              size="lg"
-              className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-4 text-lg transition-all duration-300 transform hover:scale-105"
-            >
-              <BookOpen className="w-6 h-6 mr-2" />
-              {showLessons ? "Hide Lessons" : "Show Lessons"}
-            </Button>
-          </motion.div>
-
-          <AnimatePresence>
-            {showLessons ? (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5 }}
-                className="overflow-hidden"
-              >
-                <LessonsTable />
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-6"
-              >
-                <motion.div className="bg-gradient-to-br from-amber-500/20 to-orange-600/20 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                  <BookOpen className="w-12 h-12 text-amber-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Total Lessons
-                  </h3>
-                  <p className="text-4xl font-bold text-amber-400">156</p>
-                </motion.div>
-                <motion.div className="bg-gradient-to-br from-orange-500/20 to-red-600/20 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                  <Calendar className="w-12 h-12 text-orange-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    This Week
-                  </h3>
-                  <p className="text-4xl font-bold text-orange-400">23</p>
-                </motion.div>
-                <motion.div className="bg-gradient-to-br from-red-500/20 to-pink-600/20 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                  <Users className="w-12 h-12 text-red-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Avg Attendance
-                  </h3>
-                  <p className="text-4xl font-bold text-red-400">89%</p>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <EnhancedAboutSection />
-
-      {/* Contact Section */}
-      <EnhancedContactSection />
-    </div>
   );
 }
