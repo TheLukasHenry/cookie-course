@@ -121,7 +121,7 @@ function ParticipantForm({
       )}
 
       <div className="space-y-4">
-        <h4 className="font-medium">Basic Information</h4>
+        <h4 className="font-medium text-white/90">Basic Information</h4>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name *</Label>
@@ -204,7 +204,7 @@ function ParticipantForm({
           />
         </div>
 
-        <h4 className="font-medium pt-4">Emergency Contact</h4>
+        <h4 className="font-medium pt-4 text-white/90">Emergency Contact</h4>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="emergencyContactName">Contact Name</Label>
@@ -601,50 +601,59 @@ export default function ParticipantsTable() {
 
   if (loading) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Participants Management</CardTitle>
-          <CardDescription>Loading participant data...</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
+        <div className="p-6 border-b border-white/10">
+          <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            Participants Management
+          </h3>
+          <p className="text-white/70 mt-2">Loading participant data...</p>
+        </div>
+        <div className="p-6">
           <div className="flex items-center justify-center h-32">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Participants Management</CardTitle>
-          <CardDescription>Error loading participants</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
+        <div className="p-6 border-b border-white/10">
+          <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            Participants Management
+          </h3>
+          <p className="text-white/70 mt-2">Error loading participants</p>
+        </div>
+        <div className="p-6">
           <div className="text-center space-y-4">
-            <div className="text-red-600 bg-red-50 p-3 rounded-md border border-red-200">
+            <div className="text-red-300 bg-red-500/20 p-3 rounded-md border border-red-500/30 backdrop-blur-sm">
               {error}
             </div>
-            <Button onClick={fetchParticipants} variant="outline">
+            <Button
+              onClick={fetchParticipants}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0"
+            >
               Try Again
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Participants Management ({participants.length})</CardTitle>
-        <CardDescription>
+    <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
+      <div className="p-6 border-b border-white/10">
+        <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+          Participants Management ({participants.length})
+        </h3>
+        <p className="text-white/70 mt-2">
           Manage participants registered for baking lessons
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
+        </p>
+      </div>
+      <div className="p-6 space-y-4">
         {/* Search and Filter Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -696,7 +705,10 @@ export default function ParticipantsTable() {
               onOpenChange={setIsCreateDialogOpen}
             >
               <DialogTrigger asChild>
-                <Button onClick={resetForm}>
+                <Button
+                  onClick={resetForm}
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0"
+                >
                   <Plus className="h-4 w-4 mr-2" />
                   Add Participant
                 </Button>
@@ -752,11 +764,11 @@ export default function ParticipantsTable() {
           </div>
         ) : (
           <>
-            <div className="rounded-md border">
-              <Table>
+            <div className="rounded-md border border-white/20 backdrop-blur-sm bg-white/5">
+              <Table className="text-white/90">
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-12">
+                  <TableRow className="border-white/10 hover:bg-white/5">
+                    <TableHead className="w-12 text-white/90 font-semibold">
                       <Checkbox
                         checked={
                           selectedParticipants.length ===
@@ -764,10 +776,11 @@ export default function ParticipantsTable() {
                           paginatedParticipants.length > 0
                         }
                         onCheckedChange={selectAllParticipants}
+                        className="border-white/30 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
                       />
                     </TableHead>
                     <TableHead
-                      className="cursor-pointer"
+                      className="cursor-pointer text-white/90 font-semibold hover:text-white transition-colors"
                       onClick={() => handleSort("firstName")}
                     >
                       Name{" "}
@@ -775,26 +788,32 @@ export default function ParticipantsTable() {
                         (sortDirection === "asc" ? "↑" : "↓")}
                     </TableHead>
                     <TableHead
-                      className="cursor-pointer"
+                      className="cursor-pointer text-white/90 font-semibold hover:text-white transition-colors"
                       onClick={() => handleSort("email")}
                     >
                       Email{" "}
                       {sortField === "email" &&
                         (sortDirection === "asc" ? "↑" : "↓")}
                     </TableHead>
-                    <TableHead>Phone</TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Phone
+                    </TableHead>
                     <TableHead
-                      className="cursor-pointer"
+                      className="cursor-pointer text-white/90 font-semibold hover:text-white transition-colors"
                       onClick={() => handleSort("age")}
                     >
                       Age{" "}
                       {sortField === "age" &&
                         (sortDirection === "asc" ? "↑" : "↓")}
                     </TableHead>
-                    <TableHead>Allergies/Dietary</TableHead>
-                    <TableHead>Emergency Contact</TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Allergies/Dietary
+                    </TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Emergency Contact
+                    </TableHead>
                     <TableHead
-                      className="cursor-pointer"
+                      className="cursor-pointer text-white/90 font-semibold hover:text-white transition-colors"
                       onClick={() => handleSort("registrationDate")}
                     >
                       Registration{" "}
@@ -802,19 +821,24 @@ export default function ParticipantsTable() {
                         (sortDirection === "asc" ? "↑" : "↓")}
                     </TableHead>
                     <TableHead
-                      className="cursor-pointer"
+                      className="cursor-pointer text-white/90 font-semibold hover:text-white transition-colors"
                       onClick={() => handleSort("isActive")}
                     >
                       Status{" "}
                       {sortField === "isActive" &&
                         (sortDirection === "asc" ? "↑" : "↓")}
                     </TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Actions
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {paginatedParticipants.map((participant) => (
-                    <TableRow key={participant.id}>
+                    <TableRow
+                      key={participant.id}
+                      className="border-white/10 hover:bg-white/5 transition-colors"
+                    >
                       <TableCell>
                         <Checkbox
                           checked={selectedParticipants.includes(
@@ -823,16 +847,21 @@ export default function ParticipantsTable() {
                           onCheckedChange={() =>
                             toggleParticipantSelection(participant.id)
                           }
+                          className="border-white/30 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
                         />
                       </TableCell>
-                      <TableCell className="font-medium">
+                      <TableCell className="font-medium text-white">
                         {participant.firstName} {participant.lastName}
                       </TableCell>
-                      <TableCell>{participant.email}</TableCell>
-                      <TableCell>
+                      <TableCell className="text-white/80">
+                        {participant.email}
+                      </TableCell>
+                      <TableCell className="text-white/80">
                         {participant.phone || "Not provided"}
                       </TableCell>
-                      <TableCell>{formatAge(participant.age)}</TableCell>
+                      <TableCell className="text-white/80">
+                        {formatAge(participant.age)}
+                      </TableCell>
                       <TableCell className="max-w-32">
                         <div className="space-y-1">
                           {participant.allergies &&
@@ -855,7 +884,7 @@ export default function ParticipantsTable() {
                             participant.allergies.length === 0) &&
                             (!participant.dietaryRestrictions ||
                               participant.dietaryRestrictions.length === 0) && (
-                              <span className="text-muted-foreground text-xs">
+                              <span className="text-white/50 text-xs">
                                 None
                               </span>
                             )}
@@ -864,23 +893,23 @@ export default function ParticipantsTable() {
                       <TableCell>
                         {participant.emergencyContact ? (
                           <div className="text-xs space-y-1">
-                            <div className="font-medium">
+                            <div className="font-medium text-white/90">
                               {participant.emergencyContact.name}
                             </div>
-                            <div className="text-muted-foreground">
+                            <div className="text-white/70">
                               {participant.emergencyContact.phone}
                             </div>
-                            <div className="text-muted-foreground">
+                            <div className="text-white/70">
                               {participant.emergencyContact.relationship}
                             </div>
                           </div>
                         ) : (
-                          <span className="text-muted-foreground text-xs">
+                          <span className="text-white/50 text-xs">
                             Not provided
                           </span>
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-white/80">
                         {formatDate(participant.registrationDate)}
                       </TableCell>
                       <TableCell>
@@ -895,7 +924,7 @@ export default function ParticipantsTable() {
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <Button
-                            variant="outline"
+                            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white"
                             size="sm"
                             onClick={() => handleEdit(participant)}
                           >
@@ -903,7 +932,10 @@ export default function ParticipantsTable() {
                           </Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <Button variant="outline" size="sm">
+                              <Button
+                                className="bg-white/10 border-white/20 text-white hover:bg-red-500/20 hover:text-red-300 hover:border-red-400/50"
+                                size="sm"
+                              >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
                             </AlertDialogTrigger>
@@ -939,7 +971,7 @@ export default function ParticipantsTable() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-between">
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-white/70">
                   Showing {startIndex + 1} to{" "}
                   {Math.min(
                     startIndex + itemsPerPage,
@@ -949,7 +981,7 @@ export default function ParticipantsTable() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
-                    variant="outline"
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                     size="sm"
                     onClick={() =>
                       setCurrentPage((prev) => Math.max(prev - 1, 1))
@@ -958,11 +990,11 @@ export default function ParticipantsTable() {
                   >
                     Previous
                   </Button>
-                  <span className="text-sm">
+                  <span className="text-sm text-white/80">
                     Page {currentPage} of {totalPages}
                   </span>
                   <Button
-                    variant="outline"
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                     size="sm"
                     onClick={() =>
                       setCurrentPage((prev) => Math.min(prev + 1, totalPages))
@@ -1014,7 +1046,7 @@ export default function ParticipantsTable() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

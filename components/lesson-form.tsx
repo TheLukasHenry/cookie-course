@@ -6,13 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -53,6 +46,7 @@ interface LessonFormProps {
     | "ghost"
     | "link"
     | "destructive";
+  triggerClassName?: string;
 }
 
 export default function LessonForm({
@@ -60,6 +54,7 @@ export default function LessonForm({
   onSuccess,
   triggerText,
   triggerVariant = "default",
+  triggerClassName,
 }: LessonFormProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -182,7 +177,10 @@ export default function LessonForm({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={triggerVariant} className="gap-2">
+        <Button
+          variant={triggerVariant}
+          className={`gap-2 ${triggerClassName || ""}`}
+        >
           {lesson ? <Edit className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
           {triggerText || (lesson ? "Edit Lesson" : "Add New Lesson")}
         </Button>
@@ -206,12 +204,14 @@ export default function LessonForm({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Basic Information</CardTitle>
-              <CardDescription>Essential lesson details</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-xl">
+            <div className="p-6 pb-2">
+              <h3 className="text-lg font-semibold text-white/90">
+                Basic Information
+              </h3>
+              <p className="text-sm text-white/70">Essential lesson details</p>
+            </div>
+            <div className="px-6 pb-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="title">Lesson Title *</Label>
@@ -253,7 +253,7 @@ export default function LessonForm({
                     id="skillLevel"
                     value={formData.skillLevel}
                     onChange={(e) => handleChange("skillLevel", e.target.value)}
-                    className="w-full px-3 py-2 border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                    className="w-full px-3 py-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50 [&>option]:bg-slate-800 [&>option]:text-white"
                     required
                   >
                     <option value="beginner">Beginner</option>
@@ -267,7 +267,7 @@ export default function LessonForm({
                     id="status"
                     value={formData.status}
                     onChange={(e) => handleChange("status", e.target.value)}
-                    className="w-full px-3 py-2 border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                    className="w-full px-3 py-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50 [&>option]:bg-slate-800 [&>option]:text-white"
                   >
                     <option value="scheduled">Scheduled</option>
                     <option value="completed">Completed</option>
@@ -275,18 +275,20 @@ export default function LessonForm({
                   </select>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Scheduling & Logistics */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Scheduling & Logistics</CardTitle>
-              <CardDescription>
+          <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-xl">
+            <div className="p-6 pb-2">
+              <h3 className="text-lg font-semibold text-white/90">
+                Scheduling & Logistics
+              </h3>
+              <p className="text-sm text-white/70">
                 When and where the lesson takes place
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </p>
+            </div>
+            <div className="px-6 pb-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="dateTime">Date & Time *</Label>
@@ -353,18 +355,20 @@ export default function LessonForm({
                   />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Lesson Content */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Lesson Content</CardTitle>
-              <CardDescription>
+          <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-xl">
+            <div className="p-6 pb-2">
+              <h3 className="text-lg font-semibold text-white/90">
+                Lesson Content
+              </h3>
+              <p className="text-sm text-white/70">
                 What participants will work with and learn
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </p>
+            </div>
+            <div className="px-6 pb-6 space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="ingredients">Ingredients</Label>
                 <Textarea
@@ -393,39 +397,42 @@ export default function LessonForm({
                   id="techniques"
                   value={formData.techniques}
                   onChange={(e) => handleChange("techniques", e.target.value)}
-                  placeholder="creaming, folding, baking, decorating (separate with commas)"
+                  placeholder="creaming butter, measuring dry ingredients, proper mixing (separate with commas)"
                   rows={2}
                 />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          {/* Messages */}
+          {/* Status Messages */}
           {error && (
-            <div className="flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-              <AlertCircle className="h-4 w-4 text-destructive" />
-              <span className="text-sm text-destructive">{error}</span>
+            <div className="flex items-center gap-2 p-4 text-red-300 bg-red-500/10 border border-red-400/20 rounded-lg backdrop-blur-sm">
+              <AlertCircle className="h-4 w-4" />
+              <span>{error}</span>
             </div>
           )}
 
           {success && (
-            <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-md">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-green-700">{success}</span>
+            <div className="flex items-center gap-2 p-4 text-green-300 bg-green-500/10 border border-green-400/20 rounded-lg backdrop-blur-sm">
+              <CheckCircle2 className="h-4 w-4" />
+              <span>{success}</span>
             </div>
           )}
 
-          {/* Submit Button */}
-          <div className="flex justify-end gap-2 pt-4">
+          {/* Form Actions */}
+          <div className="flex gap-3 pt-4">
             <Button
               type="button"
-              variant="outline"
+              className="flex-1 bg-white/10 border-white/20 text-white hover:bg-white/20"
               onClick={() => setOpen(false)}
-              disabled={loading}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0"
+            >
               {loading
                 ? "Saving..."
                 : lesson

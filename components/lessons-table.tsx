@@ -184,65 +184,75 @@ export default function LessonsTable() {
 
   if (loading) {
     return (
-      <Card>
-        <CardContent className="flex items-center justify-center py-12">
+      <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
+        <div className="flex items-center justify-center py-12">
           <div className="flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            <span>Loading lessons...</span>
+            <Loader2 className="h-4 w-4 animate-spin text-amber-400" />
+            <span className="text-white">Loading lessons...</span>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Card>
-        <CardContent className="py-8">
+      <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
+        <div className="py-8">
           <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-2 text-destructive">
+            <div className="flex items-center gap-2 text-red-300">
               <AlertCircle className="h-4 w-4" />
               <span>{error}</span>
             </div>
-            <Button onClick={fetchLessons} variant="outline" size="sm">
+            <Button
+              onClick={fetchLessons}
+              className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0"
+              size="sm"
+            >
               <RefreshCw className="h-4 w-4 mr-2" />
               Try Again
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
+    <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
+      <div className="p-6 border-b border-white/10">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5" />
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-amber-400" />
               Baking Lessons
-            </CardTitle>
-            <CardDescription>
+            </h3>
+            <p className="text-white/70 mt-2">
               Manage your baking lessons, schedules, and participants
-            </CardDescription>
+            </p>
           </div>
           <div className="flex items-center gap-2">
-            <Button onClick={fetchLessons} variant="outline" size="sm">
+            <Button
+              onClick={fetchLessons}
+              className="bg-gradient-to-r from-amber-500/20 to-orange-600/20 hover:from-amber-500/30 hover:to-orange-600/30 text-white border border-white/20"
+              size="sm"
+            >
               <RefreshCw className="h-4 w-4 mr-2" />
               Refresh
             </Button>
             <LessonForm onSuccess={fetchLessons} />
           </div>
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent>
+      <div className="p-6">
         {lessons.length === 0 ? (
           <div className="text-center py-8">
-            <Calendar className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No lessons yet</h3>
-            <p className="text-muted-foreground mb-4">
+            <Calendar className="h-12 w-12 mx-auto text-amber-400/70 mb-4" />
+            <h3 className="text-lg font-semibold mb-2 text-white">
+              No lessons yet
+            </h3>
+            <p className="text-white/70 mb-4">
               Create your first baking lesson to get started with your cooking
               course.
             </p>
@@ -251,22 +261,45 @@ export default function LessonsTable() {
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/70">
                 Showing {lessons.length} lesson{lessons.length !== 1 ? "s" : ""}
               </p>
             </div>
 
-            <div className="border rounded-lg overflow-hidden">
-              <Table>
+            <div className="border border-white/20 rounded-lg overflow-hidden backdrop-blur-sm bg-white/5">
+              <Table className="text-white/90 w-full table-fixed">
+                <colgroup>
+                  <col className="w-[30%]" />
+                  <col className="w-[15%]" />
+                  <col className="w-[10%]" />
+                  <col className="w-[10%]" />
+                  <col className="w-[10%]" />
+                  <col className="w-[10%]" />
+                  <col className="w-[15%]" />
+                </colgroup>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Lesson Details</TableHead>
-                    <TableHead>Schedule</TableHead>
-                    <TableHead>Participants</TableHead>
-                    <TableHead>Skill Level</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                  <TableRow className="border-white/10 hover:bg-white/5">
+                    <TableHead className="text-white/90 font-semibold">
+                      Lesson Details
+                    </TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Schedule
+                    </TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Participants
+                    </TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Skill Level
+                    </TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Status
+                    </TableHead>
+                    <TableHead className="text-white/90 font-semibold">
+                      Price
+                    </TableHead>
+                    <TableHead className="text-right text-white/90 font-semibold">
+                      Actions
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -275,91 +308,124 @@ export default function LessonsTable() {
                     const currentEnrollments = getCurrentEnrollments(lesson);
 
                     return (
-                      <TableRow key={lesson.id}>
-                        <TableCell>
-                          <div className="space-y-1">
-                            <div className="font-medium">{lesson.title}</div>
-                            <div className="text-sm text-muted-foreground line-clamp-2">
+                      <TableRow
+                        key={lesson.id}
+                        className="border-white/10 hover:bg-white/5 transition-colors"
+                      >
+                        <TableCell className="p-3">
+                          <div className="space-y-1 min-w-0">
+                            <div
+                              className="font-medium text-white truncate"
+                              title={lesson.title}
+                            >
+                              {lesson.title}
+                            </div>
+                            <div
+                              className="text-sm text-white/70 line-clamp-2 break-words"
+                              title={lesson.description}
+                              style={{
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                lineHeight: "1.3",
+                                maxHeight: "2.6em",
+                              }}
+                            >
                               {lesson.description}
                             </div>
-                            {lesson.instructor && (
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                <User className="h-3 w-3" />
-                                {lesson.instructor}
-                              </div>
-                            )}
-                            {lesson.location && (
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                <MapPin className="h-3 w-3" />
-                                {lesson.location}
-                              </div>
-                            )}
-                          </div>
-                        </TableCell>
-
-                        <TableCell>
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-1 text-sm">
-                              <Calendar className="h-3 w-3" />
-                              {dateTime.date}
-                            </div>
-                            <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                              <Clock className="h-3 w-3" />
-                              {dateTime.time} ({formatDuration(lesson.duration)}
-                              )
+                            <div className="flex flex-col gap-0.5">
+                              {lesson.instructor && (
+                                <div className="flex items-center gap-1 text-xs text-white/60 truncate">
+                                  <User className="h-3 w-3 flex-shrink-0" />
+                                  <span className="truncate">
+                                    {lesson.instructor}
+                                  </span>
+                                </div>
+                              )}
+                              {lesson.location && (
+                                <div className="flex items-center gap-1 text-xs text-white/60 truncate">
+                                  <MapPin className="h-3 w-3 flex-shrink-0" />
+                                  <span className="truncate">
+                                    {lesson.location}
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </TableCell>
 
-                        <TableCell>
-                          <div className="flex items-center gap-1">
-                            <Users className="h-3 w-3 text-muted-foreground" />
-                            <span className="text-sm">
+                        <TableCell className="p-3">
+                          <div className="space-y-1 min-w-0">
+                            <div className="flex items-center gap-1 text-sm text-white/80">
+                              <Calendar className="h-3 w-3 flex-shrink-0" />
+                              <span className="truncate">{dateTime.date}</span>
+                            </div>
+                            <div className="flex items-center gap-1 text-sm text-white/60">
+                              <Clock className="h-3 w-3 flex-shrink-0" />
+                              <span className="truncate">
+                                {dateTime.time} (
+                                {formatDuration(lesson.duration)})
+                              </span>
+                            </div>
+                          </div>
+                        </TableCell>
+
+                        <TableCell className="p-3">
+                          <div className="flex items-center gap-1 min-w-0">
+                            <Users className="h-3 w-3 text-white/60 flex-shrink-0" />
+                            <span className="text-sm text-white/80 truncate">
                               {currentEnrollments}/{lesson.maxParticipants}
                             </span>
                           </div>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell className="p-3">
                           <Badge
                             variant="outline"
-                            className={getSkillLevelColor(lesson.skillLevel)}
+                            className={`${getSkillLevelColor(
+                              lesson.skillLevel
+                            )} truncate max-w-full`}
                           >
                             {lesson.skillLevel}
                           </Badge>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell className="p-3">
                           <Badge
                             variant="outline"
-                            className={getStatusColor(lesson.status)}
+                            className={`${getStatusColor(
+                              lesson.status
+                            )} truncate max-w-full`}
                           >
                             {lesson.status}
                           </Badge>
                         </TableCell>
 
-                        <TableCell>
-                          <div className="flex items-center gap-1">
-                            <DollarSign className="h-3 w-3 text-muted-foreground" />
-                            <span className="text-sm">{lesson.price}</span>
+                        <TableCell className="p-3">
+                          <div className="flex items-center gap-1 min-w-0">
+                            <DollarSign className="h-3 w-3 text-white/60 flex-shrink-0" />
+                            <span className="text-sm text-white/80 truncate">
+                              ${lesson.price}
+                            </span>
                           </div>
                         </TableCell>
 
-                        <TableCell className="text-right">
-                          <div className="flex items-center justify-end gap-2">
+                        <TableCell className="text-right p-3">
+                          <div className="flex items-center justify-end gap-1 min-w-0">
                             <LessonForm
                               lesson={lesson}
                               onSuccess={fetchLessons}
-                              triggerText="Edit"
+                              triggerText=""
                               triggerVariant="outline"
+                              triggerClassName="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white p-2 min-w-0"
                             />
 
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button
-                                  variant="outline"
                                   size="sm"
-                                  className="text-destructive hover:text-destructive"
+                                  className="bg-white/10 border-white/20 text-white hover:bg-red-500/20 hover:text-red-300 hover:border-red-400/50 p-2 min-w-0"
                                   disabled={deletingId === lesson.id}
                                 >
                                   {deletingId === lesson.id ? (
@@ -410,7 +476,7 @@ export default function LessonsTable() {
             </div>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
