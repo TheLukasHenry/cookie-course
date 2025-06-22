@@ -666,9 +666,7 @@ export default function Home() {
       <NavigationBar />
 
       {/* Hero Section */}
-      <section id="hero">
-        <EnhancedHeroSection />
-      </section>
+      <EnhancedHeroSection />
 
       {/* Participants Section */}
       <section
