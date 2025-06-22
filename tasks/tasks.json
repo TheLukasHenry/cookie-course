@@ -99,34 +99,160 @@
       },
       {
         "id": 9,
-        "title": "Develop Complete Lessons Management UI",
-        "description": "Create a comprehensive lessons management interface on the home page using shadcn/ui components with full CRUD capabilities.",
-        "status": "pending",
+        "title": "Create Modern Landing Page with Fullscreen Sections and Visual Effects",
+        "description": "Develop a modern landing page layout with 5 fullscreen height sections including hero, participants, lessons, and other content areas, implementing smooth scroll navigation, parallax effects, and a pastel-accented design system.",
+        "status": "done",
         "dependencies": [
+          1,
+          2,
           3,
-          7
+          4,
+          5,
+          8
         ],
-        "priority": "medium",
-        "details": "1. Install shadcn/ui date picker: `npx shadcn@latest add calendar popover`\n2. Create lessons section on home page using shadcn/ui Card and Table components\n3. Build lesson creation/edit forms with all required fields using shadcn/ui Form components\n4. Implement lesson scheduling interface with date/time pickers\n5. Add lesson status management and filtering\n6. Create lesson details view with participant enrollment information\n7. Add proper validation and error handling",
-        "testStrategy": "Verify all lesson management operations work correctly in the UI with proper data validation and persistence"
+        "priority": "high",
+        "details": "## Implementation Details\n\n1. **Page Structure**:\n   - Create 5 fullscreen sections with the following content:\n     - Hero section with main headline, subheading, and call-to-action\n     - Participants section showcasing user profiles or testimonials\n     - Lessons section displaying course content or learning modules\n     - About section highlighting key value propositions and services\n     - Contact/Footer section with form and additional information\n\n2. **Styling and Design**:\n   - Implement a pastel-accented color palette using:\n     - Lavender (`#E6E6FA` or similar)\n     - Mint (`#98FB98` or similar)\n     - Soft blue (`#ADD8E6` or similar)\n   - Apply bold typography with clear hierarchy:\n     - Large, impactful headings with gradient text effects\n     - Readable body text with appropriate line height and spacing\n   - Integrate 3D illustrations that complement each section's content\n     - Placeholder spaces for 3D cookie illustrations with hover effects\n     - Ensure illustrations are responsive and load efficiently\n   - Implement minimalist icons using Lucide React with consistent styling\n   - Maintain generous white space with clean layouts and proper spacing\n\n3. **Interactive Elements**:\n   - Implement text shimmer effects with moving gradients\n   - Add particle backgrounds that respond to mouse movement\n   - Create motion animations using Framer Motion with scroll-triggered effects\n   - Apply backdrop blur for modern glass-morphism effects on cards and components\n   - Implement dynamic gradient backgrounds and overlays\n   - Add toggle functionality for Participants and Lessons tables (show/hide)\n   - Create animated statistics displays with counters\n\n4. **Responsive Considerations**:\n   - Implement mobile-first responsive layout\n   - Ensure all sections maintain proper proportions across devices\n   - Adjust fullscreen behavior for mobile (consider content-based height instead)\n   - Optimize animations and effects for performance on lower-end devices\n\n5. **Technical Implementation**:\n   - Use 21st.dev magic component builder for hero and sections\n   - Implement Framer Motion for advanced animations and transitions\n   - Ensure full type safety with TypeScript throughout\n   - Style with Tailwind CSS using utility-first approach\n   - Integrate shadcn/ui for consistent component library usage\n   - Create fully functional contact form with validation",
+        "testStrategy": "## Testing Strategy\n\n1. **Visual Consistency Testing**:\n   - Verify all 5 sections render at fullscreen height on standard desktop viewports\n   - Confirm the color palette matches the specified pastel accents across all sections\n   - Ensure typography is consistent with the design specifications\n   - Validate that 3D illustration placeholders are properly integrated and visually appealing\n   - Check that text shimmer effects and gradient overlays render correctly\n   - Verify particle backgrounds respond appropriately to mouse movement\n\n2. **Functionality Testing**:\n   - Test toggle functionality for Participants and Lessons tables\n   - Verify animated statistics counters work correctly\n   - Test contact form validation and submission process\n   - Confirm all interactive elements respond appropriately to user actions\n   - Test that section transitions and animations occur smoothly without performance issues\n\n3. **Responsive Testing**:\n   - Test the layout on multiple devices and screen sizes:\n     - Desktop (1920×1080, 1366×768)\n     - Tablet (iPad 768×1024, both orientations)\n     - Mobile (iPhone 375×667, Galaxy 360×640)\n   - Verify that fullscreen sections adapt appropriately on smaller screens\n   - Ensure animations and effects scale properly or disable on mobile if necessary\n\n4. **Performance Testing**:\n   - Run Lighthouse performance audits to ensure good scores (aim for 90+)\n   - Measure and optimize load time for animations and particle effects\n   - Test scrolling performance to ensure no jank or stuttering\n   - Verify that Framer Motion animations don't negatively impact performance\n\n5. **Accessibility Testing**:\n   - Verify WCAG 2.1 AA compliance using automated tools\n   - Test navigation with keyboard-only input\n   - Ensure screen readers can properly navigate the page structure\n   - Confirm that animations and effects don't trigger vestibular disorders\n   - Test that toggle functionality is accessible via keyboard and screen readers\n\n6. **Cross-browser Testing**:\n   - Verify consistent appearance and functionality across:\n     - Chrome, Firefox, Safari, Edge\n     - iOS Safari and Android Chrome for mobile testing\n   - Ensure glass-morphism effects and gradients render consistently across browsers",
+        "subtasks": [
+          {
+            "id": 9.1,
+            "title": "Hero Section Implementation",
+            "description": "Created modern animated hero with particles, text shimmer effects, gradient backgrounds, and 3D illustration space",
+            "status": "completed"
+          },
+          {
+            "id": 9.2,
+            "title": "Participants Section Implementation",
+            "description": "Built beautiful section with toggle functionality to show/hide participants table and animated stats cards",
+            "status": "completed"
+          },
+          {
+            "id": 9.3,
+            "title": "Lessons Section Implementation",
+            "description": "Developed comprehensive lessons section with toggle for lessons table and gradient backgrounds",
+            "status": "completed"
+          },
+          {
+            "id": 9.4,
+            "title": "About Section Implementation",
+            "description": "Created detailed about section with animated service cards, statistics counters, and call-to-action",
+            "status": "completed"
+          },
+          {
+            "id": 9.5,
+            "title": "Contact Section Implementation",
+            "description": "Built interactive contact form with validation, animated contact methods, and success states",
+            "status": "completed"
+          },
+          {
+            "id": 9.6,
+            "title": "Design System Implementation",
+            "description": "Implemented pastel color palette, bold typography with gradient text effects, 3D illustration placeholders, minimalist icons, and clean layouts with proper spacing",
+            "status": "completed"
+          },
+          {
+            "id": 9.7,
+            "title": "Modern UI Features Implementation",
+            "description": "Added text shimmer effects, particle backgrounds, motion animations, backdrop blur, and gradient overlays",
+            "status": "completed"
+          },
+          {
+            "id": 9.8,
+            "title": "Technical Implementation",
+            "description": "Integrated Framer Motion, TypeScript, Tailwind CSS, shadcn/ui, and 21st.dev components",
+            "status": "completed"
+          }
+        ]
       },
       {
         "id": 10,
-        "title": "Implement Enrollment Management System",
-        "description": "Build the enrollment system connecting participants and lessons with comprehensive UI using shadcn/ui components.",
+        "title": "Create Fixed Transparent Navigation Bar with Smooth Scroll",
+        "description": "Implement a fixed transparent navigation bar that remains at the top of the viewport and provides smooth scrolling functionality to navigate between the 5 landing page sections, with hover highlights, modern styling, and responsive design.",
+        "details": "1. Create a navigation bar component in the header section of the landing page:\n   - Position the navbar fixed at the top using `position: fixed; top: 0; width: 100%;`\n   - Apply a semi-transparent background using rgba() with appropriate opacity\n   - Add a subtle box-shadow for depth\n   - Include the site logo/name on the left side\n   - Create navigation links for all 5 landing page sections\n\n2. Implement smooth scrolling functionality:\n   - Use JavaScript to handle click events on navigation links\n   - Prevent default anchor behavior with `event.preventDefault()`\n   - Calculate target section position using `document.querySelector(targetId).offsetTop`\n   - Implement smooth scrolling with either:\n     a. CSS: `html { scroll-behavior: smooth; }`\n     b. JavaScript: `window.scrollTo({ top: targetPosition, behavior: 'smooth' })`\n\n3. Add hover effects and active state styling:\n   - Create CSS hover states with transitions for smooth color/background changes\n   - Add an active class to the current section's nav item based on scroll position\n   - Implement a JavaScript function to detect the current section in viewport\n\n4. Ensure responsive design:\n   - Use flexbox or grid for layout\n   - Create a mobile hamburger menu that appears below 768px viewport width\n   - Implement a slide-in or dropdown mobile menu with appropriate animations\n   - Test on various device sizes and adjust as needed\n\n5. Additional enhancements:\n   - Add a subtle background color change on scroll for better visibility\n   - Implement a small animation when scrolling to sections\n   - Consider accessibility by ensuring proper contrast ratios and keyboard navigation",
+        "testStrategy": "1. Visual Inspection:\n   - Verify the navigation bar is fixed at the top of the viewport across all pages\n   - Confirm the transparent/semi-transparent styling looks appropriate\n   - Check that all 5 section links are displayed correctly\n   - Ensure the design matches the project's style guidelines\n\n2. Functionality Testing:\n   - Click each navigation link and verify smooth scrolling to the correct section\n   - Test that the active state correctly updates based on the current section in view\n   - Verify hover effects work as expected on all navigation items\n   - Check that the current section is highlighted appropriately\n\n3. Responsive Testing:\n   - Test on multiple devices (mobile phones, tablets, laptops, desktops)\n   - Verify the hamburger menu appears at appropriate breakpoints\n   - Ensure the mobile menu opens/closes correctly and links function properly\n   - Check that all elements remain properly aligned and visible at all screen sizes\n\n4. Cross-browser Testing:\n   - Test in Chrome, Firefox, Safari, and Edge\n   - Verify smooth scroll behavior works consistently across browsers\n   - Check for any rendering issues or inconsistencies\n\n5. Performance Testing:\n   - Ensure scroll events don't cause performance issues\n   - Verify the navigation bar doesn't cause layout shifts\n   - Check that transitions and animations run smoothly\n\n6. Accessibility Testing:\n   - Verify navigation is accessible via keyboard\n   - Test with screen readers to ensure proper navigation\n   - Check contrast ratios meet WCAG standards",
         "status": "pending",
         "dependencies": [
-          8,
-          9
+          1,
+          2,
+          3
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Implement Parallax Scrolling Background Images",
+        "description": "Implement background images with parallax scrolling effects for all 5 sections to create visual depth using CSS transforms and scroll-based animations while ensuring optimal performance across devices.",
+        "status": "pending",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5
         ],
         "priority": "medium",
-        "details": "1. Install shadcn/ui components: `npx shadcn@latest add badge select multi-select`\n2. Create enrollment API endpoints in `app/api/enrollments/`\n3. Build enrollment management interface using shadcn/ui components\n4. Implement participant-lesson enrollment with capacity checking\n5. Create enrollment status tracking and management\n6. Add enrollment history and reporting features\n7. Implement enrollment cancellation and waitlist functionality\n8. Add enrollment statistics and analytics dashboard",
-        "testStrategy": "Test complete enrollment workflow from participant selection to lesson assignment and verify all enrollment data is properly managed"
+        "details": "1. Use the specific baking images for the emptier sections with parallax effects:\n   - baking1.png\n   - baking6.png\n   - baking10.png\n   - Select appropriate high-quality background images for the remaining 2 sections that align with the website's theme and design.\n2. Position content on the opposite side from where the main visual elements appear in each image to create balanced layouts:\n   - Analyze each image to identify the main visual elements\n   - Place text and interactive elements on the opposite side for visual balance\n   - Create a content positioning strategy for each section based on its background image\n3. Optimize all images for web use (compress, proper dimensions, consider WebP format).\n4. Implement the parallax effect using one of these approaches:\n   - Pure CSS approach using `background-attachment: fixed` with appropriate fallbacks\n   - JavaScript-based approach using scroll event listeners and `requestAnimationFrame`\n   - Consider using a lightweight library like Rellax.js if complexity warrants it\n5. CSS implementation example:\n   ```css\n   .parallax-section {\n     height: 100vh;\n     background-image: url('baking1.png');\n     background-attachment: fixed;\n     background-position: center;\n     background-repeat: no-repeat;\n     background-size: cover;\n     transform: translateZ(0);\n     will-change: transform;\n   }\n   \n   .content-right {\n     margin-left: auto;\n     width: 50%;\n     padding: 2rem;\n   }\n   \n   .content-left {\n     width: 50%;\n     padding: 2rem;\n   }\n   ```\n6. JavaScript implementation example:\n   ```javascript\n   const parallaxElements = document.querySelectorAll('.parallax-element');\n   \n   window.addEventListener('scroll', () => {\n     requestAnimationFrame(() => {\n       const scrollY = window.scrollY;\n       parallaxElements.forEach(element => {\n         const speed = element.dataset.speed || 0.5;\n         const yPos = -(scrollY * speed);\n         element.style.transform = `translateY(${yPos}px)`;\n       });\n     });\n   });\n   ```\n7. Implement progressive enhancement to ensure basic functionality on devices that don't support advanced effects.\n8. Add appropriate data attributes to control parallax speed and direction for each section.\n9. Ensure smooth transitions between sections with parallax effects.\n10. Implement throttling or debouncing for scroll events to optimize performance.\n11. Add appropriate CSS for mobile devices, potentially reducing or disabling effects on smaller screens:\n    ```css\n    @media (max-width: 768px) {\n      .parallax-section {\n        background-attachment: scroll;\n      }\n      .content-right, .content-left {\n        width: 100%;\n        margin: 0;\n        padding: 1rem;\n      }\n    }\n    ```",
+        "testStrategy": "1. Visual inspection:\n   - Verify parallax effects work smoothly in all 5 sections\n   - Check that baking1.png, baking6.png, and baking10.png are properly implemented\n   - Confirm content is positioned opposite to main visual elements in each image\n   - Ensure balanced layouts are achieved in each section\n   - Check that background images are properly sized and positioned\n   - Ensure no horizontal scrollbars appear due to parallax effects\n\n2. Cross-browser testing:\n   - Test in Chrome, Firefox, Safari, and Edge\n   - Verify graceful degradation in browsers with limited support\n\n3. Device testing:\n   - Test on desktop (various screen sizes)\n   - Test on tablets (iOS and Android)\n   - Test on mobile devices (iOS and Android)\n   - Verify appropriate fallbacks are working on devices that don't support parallax\n   - Check that content positioning remains appropriate on all screen sizes\n\n4. Performance testing:\n   - Use Chrome DevTools Performance tab to record scrolling and check for jank\n   - Verify CPU usage remains reasonable during scrolling\n   - Check FPS (frames per second) stays above 50-60 during scrolling\n   - Ensure memory usage doesn't increase significantly over time\n\n5. Accessibility testing:\n   - Verify content remains readable with parallax effects\n   - Check that motion can be disabled for users with vestibular disorders\n   - Test with reduced motion preferences enabled\n   - Ensure content is accessible regardless of its positioning\n\n6. Regression testing:\n   - Ensure other page elements and functionality work correctly with parallax effects\n   - Verify that parallax effects don't interfere with other interactive elements\n   - Check that content positioning doesn't create any usability issues",
+        "subtasks": [
+          {
+            "id": "11.1",
+            "title": "Implement baking1.png parallax section with balanced content positioning",
+            "status": "pending"
+          },
+          {
+            "id": "11.2",
+            "title": "Implement baking6.png parallax section with balanced content positioning",
+            "status": "pending"
+          },
+          {
+            "id": "11.3",
+            "title": "Implement baking10.png parallax section with balanced content positioning",
+            "status": "pending"
+          },
+          {
+            "id": "11.4",
+            "title": "Select and implement background images for remaining 2 sections",
+            "status": "pending"
+          },
+          {
+            "id": "11.5",
+            "title": "Optimize all parallax scrolling performance and responsive behavior",
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Design System Implementation with 21st.dev Components",
+        "description": "Create a comprehensive design system using 21st.dev components with a pastel-accented color palette, bold typography, 3D illustrations, minimalist icons, and large colorful tiles for metrics and value propositions.",
+        "details": "1. Set up the design system architecture:\n   - Create a dedicated directory structure for the design system\n   - Set up a documentation site using Storybook or similar tool\n\n2. Define and implement color tokens:\n   - Create a pastel-accented color palette with lavender, mint, and soft blue as primary accents\n   - Define semantic color tokens (primary, secondary, accent, background, text, etc.)\n   - Implement color variables using CSS custom properties or a styling framework\n   - Create dark/light mode variants\n\n3. Typography implementation:\n   - Select and integrate bold typography options (consider system fonts and web fonts)\n   - Define typographic scale (headings, body, captions, etc.)\n   - Implement responsive typography rules\n   - Create typography component variants\n\n4. Source and integrate visual elements:\n   - Acquire or create 3D illustrations that match the design aesthetic\n   - Develop or source minimalist icon set\n   - Create guidelines for illustration and icon usage\n\n5. Component development:\n   - Build large colorful tile components for metrics display\n   - Create value proposition components\n   - Implement responsive behavior for all components\n   - Ensure accessibility compliance (WCAG AA standards)\n\n6. Design token system:\n   - Create a comprehensive token system for colors, spacing, shadows, etc.\n   - Document usage guidelines for each token\n   - Implement the token system in a way that's consumable by the application\n\n7. Component variant system:\n   - Create a system for component variants (size, emphasis, state, etc.)\n   - Document each variant and its appropriate usage\n   - Implement variant API that's intuitive for developers\n\n8. Integration with 21st.dev:\n   - Ensure compatibility with existing 21st.dev components\n   - Extend or customize 21st.dev components as needed\n   - Document any deviations from standard 21st.dev patterns",
+        "testStrategy": "1. Visual regression testing:\n   - Set up visual regression tests using tools like Percy or Chromatic\n   - Create baseline screenshots for each component and variant\n   - Automate visual regression testing in the CI pipeline\n\n2. Accessibility testing:\n   - Use automated tools (Axe, WAVE) to verify WCAG AA compliance\n   - Perform manual keyboard navigation testing\n   - Test with screen readers (NVDA, VoiceOver)\n   - Verify color contrast ratios meet accessibility standards\n\n3. Cross-browser compatibility:\n   - Test components in Chrome, Firefox, Safari, and Edge\n   - Verify responsive behavior across different viewport sizes\n   - Test on both desktop and mobile devices\n\n4. Component API testing:\n   - Create unit tests for component props and variants\n   - Verify that components accept and properly handle all documented props\n   - Test edge cases and error states\n\n5. Integration testing:\n   - Create test pages that use multiple components together\n   - Verify that components work correctly when composed\n   - Test real-world usage scenarios\n\n6. Documentation verification:\n   - Review documentation for completeness and accuracy\n   - Ensure all components, variants, and tokens are properly documented\n   - Verify that code examples in documentation work as expected\n\n7. Developer experience testing:\n   - Conduct a small pilot with developers to gather feedback\n   - Verify that the design system is intuitive to use\n   - Address any friction points in the API or documentation",
+        "status": "pending",
+        "dependencies": [
+          5
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Integrate Specific Baking Images with Parallax Effects",
+        "description": "Integrate the specified baking images (baking1.png, baking6.png, baking10.png) into the landing page's Hero, About, and Contact sections with parallax effects while ensuring balanced content positioning.",
+        "details": "## Implementation Steps:\n\n1. **Prepare the Images**\n   - Ensure baking1.png, baking6.png, and baking10.png are optimized for web (compressed without quality loss)\n   - Place images in the appropriate assets directory (e.g., `/assets/images/`)\n\n2. **Update HTML Structure**\n   - Modify the Hero section to use baking1.png as background\n   - Update the About section to use baking6.png as background\n   - Change the Contact section to use baking10.png as background\n   - For each section, ensure the container has appropriate class/id for parallax implementation\n\n3. **Implement Parallax Effect**\n   - Use the existing parallax implementation or add the following CSS:\n   ```css\n   .parallax-section {\n     background-attachment: fixed;\n     background-position: center;\n     background-repeat: no-repeat;\n     background-size: cover;\n     overflow: hidden;\n   }\n   ```\n   - Add JavaScript for enhanced parallax scrolling if needed:\n   ```javascript\n   window.addEventListener('scroll', function() {\n     const parallaxSections = document.querySelectorAll('.parallax-section');\n     parallaxSections.forEach(section => {\n       const speed = section.dataset.speed || 0.5;\n       const yPos = -(window.pageYOffset * speed);\n       section.style.backgroundPosition = `center ${yPos}px`;\n     });\n   });\n   ```\n\n4. **Balance Content Positioning**\n   - For Hero section (baking1.png): Analyze the image and position text/content on the opposite side from main visual elements\n   - For About section (baking6.png): Position content to create visual balance with the image\n   - For Contact section (baking10.png): Ensure form elements and text are positioned for optimal readability and don't conflict with key image elements\n   - Use CSS Grid or Flexbox for responsive positioning:\n   ```css\n   .content-container {\n     display: flex;\n     justify-content: flex-start; /* or flex-end depending on image */\n     align-items: center;\n     min-height: 70vh;\n   }\n   \n   .content-box {\n     width: 50%;\n     padding: 2rem;\n     background-color: rgba(255, 255, 255, 0.8); /* semi-transparent background */\n     border-radius: 8px;\n     margin: 0 5%; /* adjust based on image */\n   }\n   ```\n\n5. **Ensure Responsive Behavior**\n   - Add media queries to adjust content positioning on smaller screens\n   - Consider disabling parallax on mobile devices for performance:\n   ```css\n   @media (max-width: 768px) {\n     .parallax-section {\n       background-attachment: scroll;\n     }\n     .content-box {\n       width: 90%;\n       margin: 0 auto;\n     }\n   }\n   ```\n\n6. **Optimize Performance**\n   - Implement lazy loading for background images\n   - Consider adding preload hints for critical images",
+        "testStrategy": "1. **Visual Inspection**\n   - Verify each section (Hero, About, Contact) displays the correct background image\n   - Confirm parallax effect works smoothly when scrolling\n   - Check that content is positioned opposite to main visual elements in each image\n   - Ensure text remains readable against all background images\n\n2. **Cross-Browser Testing**\n   - Test in Chrome, Firefox, Safari, and Edge to ensure consistent parallax behavior\n   - Verify image loading and positioning in all major browsers\n\n3. **Responsive Testing**\n   - Test on multiple device sizes (desktop, tablet, mobile)\n   - Verify content repositions appropriately at different breakpoints\n   - Confirm images scale correctly without distortion\n   - Check that parallax effect is disabled on mobile if implemented that way\n\n4. **Performance Testing**\n   - Use Chrome DevTools Performance tab to measure scroll performance\n   - Verify that page load time is not significantly impacted (under 3s)\n   - Check Lighthouse score to ensure performance remains above 80\n\n5. **Accessibility Testing**\n   - Verify sufficient contrast between text and background images\n   - Ensure all content remains accessible when images fail to load\n   - Test with screen readers to confirm proper semantic structure\n\n6. **User Testing**\n   - Have at least 2 team members review the implementation\n   - Collect feedback on visual appeal and readability\n   - Adjust content positioning based on feedback if necessary",
+        "status": "pending",
+        "dependencies": [
+          5,
+          8
+        ],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-06-21T15:37:37.708Z",
-      "updated": "2025-06-21T22:52:45.929Z",
+      "updated": "2025-06-22T15:36:39.396Z",
       "description": "Tasks for master context"
     }
   }
