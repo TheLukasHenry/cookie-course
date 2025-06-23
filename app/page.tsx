@@ -147,6 +147,7 @@ const EnhancedHeroSection = () => {
 
   return (
     <section
+      id="hero"
       ref={parallaxRef}
       className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-start"
       style={{
@@ -308,6 +309,7 @@ const EnhancedAboutSection = () => {
 
   return (
     <section
+      id="about"
       ref={parallaxRef}
       className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden py-24"
       style={{
@@ -470,6 +472,7 @@ const EnhancedContactSection = () => {
 
   return (
     <section
+      id="contact"
       ref={parallaxRef}
       className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden py-24"
       style={{

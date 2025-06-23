@@ -6,6 +6,7 @@ import {
   AnimatePresence,
   useScroll,
   useTransform,
+  Variants,
 } from "framer-motion";
 import {
   Star,
@@ -57,7 +58,7 @@ function AnimatedTextCycle({
     return () => clearInterval(timer);
   }, [interval, words.length]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: {
       y: -20,
       opacity: 0,
