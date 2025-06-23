@@ -213,14 +213,14 @@ export function EnhancedHeroSection() {
   return (
     <section
       ref={parallaxRef}
-      className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-start"
+      className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-start max-w-screen"
       style={{
         backgroundImage: "url('/backgroundImages/baking1.png')",
         backgroundAttachment: "fixed",
       }}
     >
       {/* Enhanced overlay with warm colors */}
-      <div className="absolute inset-0 bg-gradient-to-r from-amber-900/80 via-orange-900/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-amber-900/80 via-orange-900/70 to-transparent max-w-screen" />
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
