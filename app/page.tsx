@@ -135,7 +135,21 @@ function GlassMorphismCard({
 
 // Enhanced Hero Section with Parallax Background (Content on LEFT)
 const EnhancedHeroSection = () => {
-  const parallaxRef = useBackgroundParallax({ speed: 0.8 });
+  const parallaxRef = useBackgroundParallax({ speed: 0.4 });
+  const [particles, setParticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 20 }, () => ({
+        width: Math.random() * 8 + 4,
+        height: Math.random() * 8 + 4,
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        duration: Math.random() * 3 + 2,
+        delay: Math.random() * 2,
+      }))
+    );
+  }, []);
 
   const bakingWords = [
     "artisanal cookies",
@@ -152,7 +166,6 @@ const EnhancedHeroSection = () => {
       className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-start"
       style={{
         backgroundImage: "url('/backgroundImages/baking1.png')",
-        backgroundAttachment: "fixed",
       }}
     >
       {/* Enhanced overlay with warm colors */}
@@ -160,15 +173,15 @@ const EnhancedHeroSection = () => {
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {particles.map((p, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-amber-300/30"
             style={{
-              width: `${Math.random() * 8 + 4}px`,
-              height: `${Math.random() * 8 + 4}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              width: `${p.width}px`,
+              height: `${p.height}px`,
+              top: p.top,
+              left: p.left,
             }}
             animate={{
               y: [0, -20, 0],
@@ -176,16 +189,16 @@ const EnhancedHeroSection = () => {
               scale: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: p.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: p.delay,
             }}
           />
         ))}
       </div>
 
       {/* Content positioned on the left */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-20">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 py-20">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
@@ -282,7 +295,7 @@ const EnhancedHeroSection = () => {
 
 // Enhanced About Section with Parallax Background
 const EnhancedAboutSection = () => {
-  const parallaxRef = useBackgroundParallax({ speed: 0.7 });
+  const parallaxRef = useBackgroundParallax({ speed: 0.3 });
 
   const features = [
     {
@@ -314,13 +327,12 @@ const EnhancedAboutSection = () => {
       className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden py-24"
       style={{
         backgroundImage: "url('/backgroundImages/baking6.png')",
-        backgroundAttachment: "fixed",
       }}
     >
       {/* Enhanced overlay with cool tones */}
       <div className="absolute inset-0 bg-gradient-to-l from-blue-900/85 via-indigo-900/75 to-purple-900/80" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content positioned on the right */}
           <div className="lg:order-2">
@@ -449,7 +461,7 @@ const EnhancedAboutSection = () => {
 
 // Enhanced Contact Section with Parallax Background
 const EnhancedContactSection = () => {
-  const parallaxRef = useBackgroundParallax({ speed: 0.6 });
+  const parallaxRef = useBackgroundParallax({ speed: 0.2 });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -477,13 +489,12 @@ const EnhancedContactSection = () => {
       className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden py-24"
       style={{
         backgroundImage: "url('/backgroundImages/baking10.png')",
-        backgroundAttachment: "fixed",
       }}
     >
       {/* Enhanced overlay with warm sunset colors */}
       <div className="absolute inset-0 bg-gradient-to-r from-pink-900/85 via-orange-900/75 to-yellow-900/80" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -751,7 +762,7 @@ export default function Home() {
       {/* Lessons Section */}
       <section
         id="lessons"
-        className="min-h-screen flex flex-col justify-center py-20 px-4"
+        className="min-h-screen flex flex-col justify-center py-20 px-4 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900"
       >
         <div className="max-w-7xl mx-auto w-full">
           <motion.div

@@ -29,6 +29,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +51,15 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
       }
 
       setActiveSection(currentSection);
+
+      // Calculate scroll progress
+      const totalScrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScrollHeight > 0) {
+        setScrollProgress((scrollPosition / totalScrollHeight) * 100);
+      } else {
+        setScrollProgress(0);
+      }
     };
 
     const handleResize = () => {
@@ -195,21 +205,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
       <div
         className="absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ease-out"
         style={{
-          width: `${Math.min(
-            100,
-            (window.scrollY /
-              (document.documentElement.scrollHeight - window.innerHeight)) *
-              100
-          )}%`,
+          width: `${scrollProgress}%`,
         }}
         role="progressbar"
         aria-label="Page scroll progress"
-        aria-valuenow={Math.min(
-          100,
-          (window.scrollY /
-            (document.documentElement.scrollHeight - window.innerHeight)) *
-            100
-        )}
+        aria-valuenow={scrollProgress}
         aria-valuemin={0}
         aria-valuemax={100}
       />
