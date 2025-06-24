@@ -221,7 +221,7 @@ export default function LessonsTable() {
   return (
     <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
       <div className="p-6 border-b border-white/10">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 flex items-center gap-2">
               <Calendar className="h-5 w-5 text-amber-400" />
@@ -266,17 +266,8 @@ export default function LessonsTable() {
               </p>
             </div>
 
-            <div className="border border-white/20 rounded-lg overflow-hidden backdrop-blur-sm bg-white/5">
-              <Table className="text-white/90 w-full table-fixed">
-                <colgroup>
-                  <col className="w-[30%]" />
-                  <col className="w-[15%]" />
-                  <col className="w-[10%]" />
-                  <col className="w-[10%]" />
-                  <col className="w-[10%]" />
-                  <col className="w-[10%]" />
-                  <col className="w-[15%]" />
-                </colgroup>
+            <div className="border border-white/20 rounded-lg overflow-x-auto backdrop-blur-sm bg-white/5">
+              <Table className="text-white/90 w-full">
                 <TableHeader>
                   <TableRow className="border-white/10 hover:bg-white/5">
                     <TableHead className="text-white/90 font-semibold">
@@ -312,8 +303,8 @@ export default function LessonsTable() {
                         key={lesson.id}
                         className="border-white/10 hover:bg-white/5 transition-colors"
                       >
-                        <TableCell className="p-3">
-                          <div className="space-y-1 min-w-0">
+                        <TableCell className="p-3 min-w-[300px]">
+                          <div className="space-y-1">
                             <div
                               className="font-medium text-white truncate"
                               title={lesson.title}
@@ -321,20 +312,12 @@ export default function LessonsTable() {
                               {lesson.title}
                             </div>
                             <div
-                              className="text-sm text-white/70 line-clamp-2 break-words"
+                              className="text-sm text-white/70 whitespace-normal max-w-md"
                               title={lesson.description}
-                              style={{
-                                display: "-webkit-box",
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: "vertical",
-                                overflow: "hidden",
-                                lineHeight: "1.3",
-                                maxHeight: "2.6em",
-                              }}
                             >
                               {lesson.description}
                             </div>
-                            <div className="flex flex-col gap-0.5">
+                            <div className="flex flex-col gap-0.5 pt-2">
                               {lesson.instructor && (
                                 <div className="flex items-center gap-1 text-xs text-white/60 truncate">
                                   <User className="h-3 w-3 flex-shrink-0" />

@@ -192,7 +192,7 @@ const EnhancedHeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <GlassMorphismCard className="p-12" opacity={15}>
+            <GlassMorphismCard className="p-6 md:p-12" opacity={15}>
               <motion.div
                 className="text-center"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -330,7 +330,7 @@ const EnhancedAboutSection = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <GlassMorphismCard className="p-8" opacity={15}>
+              <GlassMorphismCard className="p-4 md:p-8" opacity={15}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -358,7 +358,7 @@ const EnhancedAboutSection = () => {
                   experience that will transform you into a cookie master.
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {features.map((feature, index) => (
                     <motion.div
                       key={index}
@@ -396,7 +396,7 @@ const EnhancedAboutSection = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <GlassMorphismCard className="p-8" opacity={10}>
+              <GlassMorphismCard className="p-4 md:p-8" opacity={10}>
                 <div className="text-center">
                   <motion.div
                     initial={{ scale: 0 }}
@@ -519,7 +519,7 @@ const EnhancedContactSection = () => {
             viewport={{ once: true }}
             className="lg:order-2"
           >
-            <GlassMorphismCard className="p-8" opacity={15}>
+            <GlassMorphismCard className="p-4 md:p-8" opacity={15}>
               <h3 className="text-2xl font-bold text-white mb-6">
                 Send us a message
               </h3>

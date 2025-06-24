@@ -122,7 +122,7 @@ function ParticipantForm({
 
       <div className="space-y-4">
         <h4 className="font-medium text-white/90">Basic Information</h4>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name *</Label>
             <Input
@@ -157,7 +157,7 @@ function ParticipantForm({
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
             <Input
@@ -205,7 +205,7 @@ function ParticipantForm({
         </div>
 
         <h4 className="font-medium pt-4 text-white/90">Emergency Contact</h4>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="emergencyContactName">Contact Name</Label>
             <Input
@@ -599,6 +599,12 @@ export default function ParticipantsTable() {
     return items.join(", ");
   };
 
+  const getStatusColor = (isActive: boolean) => {
+    return isActive
+      ? "bg-green-100 text-green-800 border-green-200"
+      : "bg-red-100 text-red-800 border-red-200";
+  };
+
   if (loading) {
     return (
       <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-xl shadow-2xl">
@@ -914,9 +920,8 @@ export default function ParticipantsTable() {
                       </TableCell>
                       <TableCell>
                         <Badge
-                          variant={
-                            participant.isActive ? "default" : "secondary"
-                          }
+                          variant={"outline"}
+                          className={getStatusColor(participant.isActive)}
                         >
                           {participant.isActive ? "Active" : "Inactive"}
                         </Badge>
