@@ -40,7 +40,6 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Validate required fields
     const requiredFields = [
       "title",
       "description",
@@ -63,7 +62,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate skill level
     const validSkillLevels = ["beginner", "intermediate", "advanced"];
     if (!validSkillLevels.includes(body.skillLevel)) {
       return NextResponse.json(
@@ -77,7 +75,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate status if provided
     const validStatuses = ["scheduled", "completed", "cancelled"];
     if (body.status && !validStatuses.includes(body.status)) {
       return NextResponse.json(
@@ -90,7 +87,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate numeric fields
     if (
       body.duration &&
       (typeof body.duration !== "number" || body.duration <= 0)
@@ -130,7 +126,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate date
     const lessonDate = new Date(body.dateTime);
     if (isNaN(lessonDate.getTime())) {
       return NextResponse.json(
@@ -143,7 +138,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if lesson is scheduled in the past
     if (lessonDate < new Date() && body.status !== "completed") {
       return NextResponse.json(
         {
@@ -155,7 +149,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create lesson object
     const lessonData = {
       title: body.title.trim(),
       description: body.description.trim(),

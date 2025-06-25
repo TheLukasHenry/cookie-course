@@ -86,7 +86,6 @@ export default function LessonForm({
     setSuccess(null);
 
     try {
-      // Prepare the lesson data
       const lessonData = {
         title: formData.title.trim(),
         description: formData.description.trim(),
@@ -133,7 +132,6 @@ export default function LessonForm({
         );
 
         if (!lesson) {
-          // Reset form for new lesson creation
           setFormData({
             title: "",
             description: "",
@@ -151,7 +149,6 @@ export default function LessonForm({
           });
         }
 
-        // Close dialog and trigger refresh after a brief delay
         setTimeout(() => {
           if (onSuccess) onSuccess();
           setOpen(false);

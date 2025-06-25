@@ -1,4 +1,3 @@
-// Test script to verify Cosmos DB connection
 import {
   testCosmosConnection,
   checkEnvironmentVariables,
@@ -8,7 +7,6 @@ async function main() {
   console.log("🚀 Testing Cosmos DB Connection...\n");
 
   try {
-    // First check environment variables
     console.log("Step 1: Checking environment variables...");
     const envCheck = checkEnvironmentVariables();
 

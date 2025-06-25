@@ -47,7 +47,6 @@ export async function PUT(
   try {
     const body = await request.json();
 
-    // Check if lesson exists
     const existingLesson = await cosmosService.getLesson(params.id);
     if (!existingLesson) {
       return NextResponse.json(
@@ -60,7 +59,6 @@ export async function PUT(
       );
     }
 
-    // Validate skill level if provided
     if (body.skillLevel) {
       const validSkillLevels = ["beginner", "intermediate", "advanced"];
       if (!validSkillLevels.includes(body.skillLevel)) {
@@ -76,7 +74,6 @@ export async function PUT(
       }
     }
 
-    // Validate status if provided
     if (body.status) {
       const validStatuses = ["scheduled", "completed", "cancelled"];
       if (!validStatuses.includes(body.status)) {
@@ -91,7 +88,6 @@ export async function PUT(
       }
     }
 
-    // Validate numeric fields if provided
     if (
       body.duration !== undefined &&
       (typeof body.duration !== "number" || body.duration <= 0)
@@ -134,7 +130,6 @@ export async function PUT(
       );
     }
 
-    // Validate date if provided
     if (body.dateTime) {
       const lessonDate = new Date(body.dateTime);
       if (isNaN(lessonDate.getTime())) {
@@ -148,7 +143,6 @@ export async function PUT(
         );
       }
 
-      // Check if lesson is scheduled in the past (unless it's marked as completed)
       if (
         lessonDate < new Date() &&
         body.status !== "completed" &&
@@ -167,7 +161,6 @@ export async function PUT(
       body.dateTime = lessonDate.toISOString();
     }
 
-    // Prepare update data, trimming string fields
     const updateData: Partial<Lesson> = {};
 
     if (body.title) updateData.title = body.title.trim();
@@ -230,7 +223,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Check if lesson exists
     const existingLesson = await cosmosService.getLesson(params.id);
     if (!existingLesson) {
       return NextResponse.json(
@@ -243,7 +235,6 @@ export async function DELETE(
       );
     }
 
-    // Check if lesson has enrollments
     if (
       existingLesson._enrollments_data &&
       existingLesson._enrollments_data.length > 0

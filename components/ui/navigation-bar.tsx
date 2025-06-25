@@ -36,7 +36,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 50);
 
-      // Find active section based on scroll position
       const sections = items.map((item) => item.id);
       let currentSection = "hero";
 
@@ -52,7 +51,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
 
       setActiveSection(currentSection);
 
-      // Calculate scroll progress
       const totalScrollHeight =
         document.documentElement.scrollHeight - window.innerHeight;
       if (totalScrollHeight > 0) {
@@ -121,7 +119,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection("#hero")}
@@ -133,7 +130,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-1">
               {items.map((item) => (
@@ -155,7 +151,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
             </div>
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -201,7 +196,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
         </div>
       </div>
 
-      {/* Progress indicator */}
       <div
         className="absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ease-out"
         style={{

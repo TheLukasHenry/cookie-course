@@ -99,7 +99,6 @@ interface ParticipantFormProps {
   submitMessage?: { type: "success" | "error"; text: string } | null;
 }
 
-// Extracted ParticipantForm component to prevent re-creation on each render
 function ParticipantForm({
   isEdit = false,
   formData,
@@ -276,7 +275,6 @@ export default function ParticipantsTable() {
     useState<keyof Participant>("registrationDate");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
-  // Dialog states
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingParticipant, setEditingParticipant] =
@@ -287,7 +285,6 @@ export default function ParticipantsTable() {
     text: string;
   } | null>(null);
 
-  // Form data
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -343,7 +340,6 @@ export default function ParticipantsTable() {
     fetchParticipants();
   }, []);
 
-  // Filter and sort participants
   useEffect(() => {
     let filtered = participants.filter((participant) => {
       const matchesSearch =
@@ -361,12 +357,10 @@ export default function ParticipantsTable() {
       return matchesSearch && matchesStatus;
     });
 
-    // Sort
     filtered.sort((a, b) => {
       let aValue = a[sortField];
       let bValue = b[sortField];
 
-      // Handle undefined values
       if (aValue === undefined && bValue === undefined) return 0;
       if (aValue === undefined) return sortDirection === "asc" ? 1 : -1;
       if (bValue === undefined) return sortDirection === "asc" ? -1 : 1;
@@ -385,7 +379,6 @@ export default function ParticipantsTable() {
     setCurrentPage(1);
   }, [participants, searchTerm, statusFilter, sortField, sortDirection]);
 
-  // Pagination
   const totalPages = Math.ceil(filteredParticipants.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedParticipants = filteredParticipants.slice(
@@ -406,11 +399,9 @@ export default function ParticipantsTable() {
     field: keyof FormData,
     value: string | boolean
   ) => {
-    // Special handling for age field to prevent NaN values
     if (field === "age" && typeof value === "string") {
-      // Only allow numeric input for age, or empty string
       if (value !== "" && (isNaN(Number(value)) || Number(value) < 0)) {
-        return; // Don't update if invalid
+        return;
       }
     }
 

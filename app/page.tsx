@@ -23,7 +23,6 @@ import { useBackgroundParallax } from "@/hooks/useParallax";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-// Enhanced animated text cycle component
 function AnimatedTextCycle({
   words,
   interval = 3000,
@@ -64,7 +63,6 @@ function AnimatedTextCycle({
   );
 }
 
-// Enhanced glowing gradient button
 function GlowingGradientButton({
   children,
   className = "",
@@ -108,7 +106,6 @@ function GlowingGradientButton({
   );
 }
 
-// Enhanced glass morphism card
 function GlassMorphismCard({
   children,
   className = "",
@@ -132,8 +129,6 @@ function GlassMorphismCard({
     </motion.div>
   );
 }
-
-// Enhanced Hero Section with Parallax Background (Content on LEFT)
 const EnhancedHeroSection = () => {
   const parallaxRef = useBackgroundParallax({ speed: 0.4 });
   const [particles, setParticles] = useState<any[]>([]);
@@ -293,7 +288,6 @@ const EnhancedHeroSection = () => {
   );
 };
 
-// Enhanced About Section with Parallax Background
 const EnhancedAboutSection = () => {
   const parallaxRef = useBackgroundParallax({ speed: 0.3 });
 
@@ -459,7 +453,6 @@ const EnhancedAboutSection = () => {
   );
 };
 
-// Enhanced Contact Section with Parallax Background
 const EnhancedContactSection = () => {
   const parallaxRef = useBackgroundParallax({ speed: 0.2 });
   const [formData, setFormData] = useState({

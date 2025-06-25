@@ -1,6 +1,5 @@
 import { CosmosClient, Database, Container, SqlQuerySpec } from "@azure/cosmos";
 
-// Types for our application
 export interface CosmosConfig {
   endpoint: string;
   key: string;
@@ -8,7 +7,6 @@ export interface CosmosConfig {
   containers: {
     participants: string;
     lessons: string;
-    // Note: enrollments are embedded in lessons, not a separate container
   };
 }
 
@@ -57,7 +55,6 @@ export interface Lesson {
   status: "scheduled" | "completed" | "cancelled";
   createdAt: string;
   updatedAt: string;
-  // Embedded enrollments data
   _enrollments_data?: Enrollment[];
 }
 
@@ -113,7 +110,6 @@ class CosmosService {
     }
   }
 
-  // Participant CRUD operations
   async createParticipant(
     participant: Omit<Participant, "id">
   ): Promise<Participant> {
@@ -191,7 +187,6 @@ class CosmosService {
     if (!this.containers.participants)
       throw new Error("Participants container not initialized");
 
-    // Soft delete by setting isActive to false
     await this.updateParticipant(id, { isActive: false });
   }
 
@@ -203,7 +198,6 @@ class CosmosService {
     await this.containers.participants.item(id, id).delete();
   }
 
-  // Lesson CRUD operations
   async createLesson(
     lesson: Omit<Lesson, "id" | "createdAt" | "updatedAt">
   ): Promise<Lesson> {
@@ -216,7 +210,7 @@ class CosmosService {
       id: `lesson-${Date.now()}`,
       createdAt: now,
       updatedAt: now,
-      _enrollments_data: [], // Initialize empty enrollments array
+      _enrollments_data: [],
       ...lesson,
     };
 
@@ -298,7 +292,6 @@ class CosmosService {
     await this.containers.lessons.item(id, id).delete();
   }
 
-  // Enrollment operations (embedded in lessons)
   async enrollParticipant(
     lessonId: string,
     participantId: string,
@@ -312,14 +305,12 @@ class CosmosService {
     const participant = await this.getParticipant(participantId);
     if (!participant) throw new Error("Participant not found");
 
-    // Check if already enrolled
     const existingEnrollment = lesson._enrollments_data?.find(
       (e) => e.participantId === participantId
     );
     if (existingEnrollment)
       throw new Error("Participant already enrolled in this lesson");
 
-    // Check capacity
     const currentEnrollments =
       lesson._enrollments_data?.filter((e) => e.status === "enrolled").length ||
       0;
@@ -327,7 +318,6 @@ class CosmosService {
       throw new Error("Lesson is at maximum capacity");
     }
 
-    // Create new enrollment
     const newEnrollment: Enrollment = {
       id: `enrollment-${Date.now()}`,
       participantId,
@@ -338,11 +328,9 @@ class CosmosService {
       notes,
     };
 
-    // Add to lesson's enrollments
     if (!lesson._enrollments_data) lesson._enrollments_data = [];
     lesson._enrollments_data.push(newEnrollment);
 
-    // Update lesson
     await this.updateLesson(lessonId, {
       _enrollments_data: lesson._enrollments_data,
     });
@@ -362,12 +350,10 @@ class CosmosService {
     if (!lesson._enrollments_data)
       throw new Error("No enrollments found for this lesson");
 
-    // Remove enrollment
     lesson._enrollments_data = lesson._enrollments_data.filter(
       (e) => e.participantId !== participantId
     );
 
-    // Update lesson
     await this.updateLesson(lessonId, {
       _enrollments_data: lesson._enrollments_data,
     });
@@ -444,7 +430,6 @@ class CosmosService {
     });
   }
 
-  // Utility methods
   async getParticipantFullName(participantId: string): Promise<string> {
     const participant = await this.getParticipant(participantId);
     if (!participant) return "Unknown Participant";
@@ -471,6 +456,5 @@ class CosmosService {
   }
 }
 
-// Export singleton instance
 const cosmosService = new CosmosService();
 export default cosmosService;

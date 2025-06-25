@@ -1,18 +1,3 @@
-#!/usr/bin/env ts-node
-
-/**
- * Test script for Lessons API endpoints
- *
- * This script tests all CRUD operations for the lessons API:
- * - GET /api/lessons (fetch all lessons)
- * - POST /api/lessons (create new lesson)
- * - GET /api/lessons/[id] (fetch specific lesson)
- * - PUT /api/lessons/[id] (update lesson)
- * - DELETE /api/lessons/[id] (delete lesson)
- *
- * Run this script with: npx ts-node scripts/test-lessons-api.ts
- */
-
 const API_BASE_URL = "http://localhost:3000";
 
 interface ApiResponse<T = any> {
@@ -205,15 +190,14 @@ async function testDeleteLesson(lessonId: string): Promise<boolean> {
 async function testValidationErrors(): Promise<void> {
   console.log("\n🧪 Testing validation errors...");
 
-  // Test invalid lesson creation
   const invalidLesson = {
-    title: "", // Empty title
+    title: "",
     description: "Test description",
-    skillLevel: "invalid" as any, // Invalid skill level
-    duration: -30, // Negative duration
-    maxParticipants: 0, // Zero participants
-    price: -10, // Negative price
-    dateTime: "invalid-date", // Invalid date
+    skillLevel: "invalid" as any,
+    duration: -30,
+    maxParticipants: 0,
+    price: -10,
+    dateTime: "invalid-date",
   };
 
   const response = await makeRequest("/api/lessons", {
@@ -251,48 +235,41 @@ async function runAllTests(): Promise<void> {
   let testsPassed = 0;
   let totalTests = 0;
 
-  // Test 1: Get all lessons
   totalTests++;
   if (await testGetAllLessons()) {
     testsPassed++;
   }
 
-  // Test 2: Create new lesson
   totalTests++;
   createdLessonId = await testCreateLesson();
   if (createdLessonId) {
     testsPassed++;
   }
 
-  // Test 3: Get specific lesson (only if creation succeeded)
   if (createdLessonId) {
     totalTests++;
     if (await testGetSpecificLesson(createdLessonId)) {
       testsPassed++;
     }
 
-    // Test 4: Update lesson
     totalTests++;
     if (await testUpdateLesson(createdLessonId)) {
       testsPassed++;
     }
 
-    // Test 5: Delete lesson
     totalTests++;
     if (await testDeleteLesson(createdLessonId)) {
       testsPassed++;
     }
   }
 
-  // Test 6: Validation errors
   totalTests++;
   await testValidationErrors();
-  testsPassed++; // Always count this as passed since we expect it to fail
+  testsPassed++;
 
-  // Test 7: Filter by status
   totalTests++;
   await testLessonsByStatus();
-  testsPassed++; // Always count this as passed for now
+  testsPassed++;
 
   console.log("\n" + "=" + "=".repeat(50));
   console.log("📊 Test Results:");
@@ -306,7 +283,6 @@ async function runAllTests(): Promise<void> {
   }
 }
 
-// Run tests if this script is executed directly
 if (require.main === module) {
   runAllTests().catch(console.error);
 }

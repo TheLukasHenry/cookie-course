@@ -1,6 +1,5 @@
 import cosmosService from "./cosmos";
 
-// Test function to verify Cosmos DB connection
 export async function testCosmosConnection() {
   console.log("🧪 Testing Cosmos DB connection...");
 
@@ -20,12 +19,10 @@ export async function testCosmosConnection() {
   }
 }
 
-// Example usage functions
 export async function createSampleData() {
   console.log("📝 Creating sample data...");
 
   try {
-    // Create a sample participant
     const participant = await cosmosService.createParticipant({
       firstName: "John",
       lastName: "Doe",
@@ -44,7 +41,6 @@ export async function createSampleData() {
     });
     console.log("✅ Created participant:", participant.id);
 
-    // Create a sample lesson
     const lesson = await cosmosService.createLesson({
       title: "Introduction to Cookie Baking",
       description: "Learn the basics of cookie baking with hands-on techniques",
@@ -62,7 +58,6 @@ export async function createSampleData() {
     });
     console.log("✅ Created lesson:", lesson.id);
 
-    // Enroll participant in lesson (using embedded enrollment system)
     const enrollment = await cosmosService.enrollParticipant(
       lesson.id,
       participant.id,
@@ -77,15 +72,12 @@ export async function createSampleData() {
   }
 }
 
-// Test CRUD operations
 export async function testCRUDOperations() {
   console.log("🧪 Testing CRUD operations...");
 
   try {
-    // Test Participants CRUD
     console.log("Testing Participants CRUD...");
 
-    // Create
     const newParticipant = await cosmosService.createParticipant({
       firstName: "Test",
       lastName: "User",
@@ -104,7 +96,6 @@ export async function testCRUDOperations() {
     });
     console.log("✅ Participant created:", newParticipant.id);
 
-    // Read
     const fetchedParticipant = await cosmosService.getParticipant(
       newParticipant.id
     );
@@ -112,7 +103,6 @@ export async function testCRUDOperations() {
       console.log("✅ Participant fetched successfully");
     }
 
-    // Update
     const updatedParticipant = await cosmosService.updateParticipant(
       newParticipant.id,
       {
@@ -125,14 +115,11 @@ export async function testCRUDOperations() {
       `${updatedParticipant.firstName} ${updatedParticipant.lastName}`
     );
 
-    // List all
     const allParticipants = await cosmosService.getAllParticipants();
     console.log("✅ Total active participants:", allParticipants.length);
 
-    // Test Lessons CRUD
     console.log("Testing Lessons CRUD...");
 
-    // Create
     const newLesson = await cosmosService.createLesson({
       title: "Advanced Cookie Decorating",
       description: "Master the art of cookie decoration with royal icing",
@@ -159,33 +146,27 @@ export async function testCRUDOperations() {
     });
     console.log("✅ Lesson created:", newLesson.id);
 
-    // Read
     const fetchedLesson = await cosmosService.getLesson(newLesson.id);
     if (fetchedLesson) {
       console.log("✅ Lesson fetched successfully");
     }
 
-    // Update
     const updatedLesson = await cosmosService.updateLesson(newLesson.id, {
       title: "Updated Advanced Cookie Decorating",
       price: 80,
     });
     console.log("✅ Lesson updated:", updatedLesson.title);
 
-    // List all
     const allLessons = await cosmosService.getAllLessons();
     console.log("✅ Total lessons:", allLessons.length);
 
-    // Get lessons by status
     const scheduledLessons = await cosmosService.getLessonsByStatus(
       "scheduled"
     );
     console.log("✅ Scheduled lessons:", scheduledLessons.length);
 
-    // Test Embedded Enrollments
     console.log("Testing Embedded Enrollments...");
 
-    // Enroll participant in lesson
     const enrollment = await cosmosService.enrollParticipant(
       newLesson.id,
       newParticipant.id,
@@ -193,18 +174,15 @@ export async function testCRUDOperations() {
     );
     console.log("✅ Enrollment created:", enrollment.id);
 
-    // Get enrollments for lesson
     const lessonEnrollments = await cosmosService.getEnrollmentsForLesson(
       newLesson.id
     );
     console.log("✅ Lesson enrollments:", lessonEnrollments.length);
 
-    // Get enrollments for participant
     const participantEnrollments =
       await cosmosService.getEnrollmentsForParticipant(newParticipant.id);
     console.log("✅ Participant enrollments:", participantEnrollments.length);
 
-    // Update enrollment status
     await cosmosService.updateEnrollmentStatus(
       newLesson.id,
       newParticipant.id,
@@ -212,7 +190,6 @@ export async function testCRUDOperations() {
     );
     console.log("✅ Enrollment status updated to completed");
 
-    // Update payment status
     await cosmosService.updateEnrollmentPaymentStatus(
       newLesson.id,
       newParticipant.id,
@@ -220,16 +197,13 @@ export async function testCRUDOperations() {
     );
     console.log("✅ Payment status updated to paid");
 
-    // Test utility methods
     console.log("Testing Utility Methods...");
 
-    // Get participant full name
     const fullName = await cosmosService.getParticipantFullName(
       newParticipant.id
     );
     console.log("✅ Participant full name:", fullName);
 
-    // Get lesson with enrolled participants
     const lessonWithParticipants =
       await cosmosService.getLessonWithEnrolledParticipants(newLesson.id);
     if (lessonWithParticipants) {
@@ -239,11 +213,10 @@ export async function testCRUDOperations() {
       });
     }
 
-    // Cleanup - Delete test data
     await cosmosService.unenrollParticipant(newLesson.id, newParticipant.id);
     console.log("✅ Enrollment removed");
 
-    await cosmosService.deleteParticipant(newParticipant.id); // This is soft delete
+    await cosmosService.deleteParticipant(newParticipant.id);
     console.log("✅ Participant soft deleted (isActive = false)");
 
     await cosmosService.deleteLesson(newLesson.id);
@@ -257,7 +230,6 @@ export async function testCRUDOperations() {
   }
 }
 
-// Check environment variables
 export function checkEnvironmentVariables() {
   console.log("🔍 Checking environment variables...");
 
@@ -299,11 +271,9 @@ export function checkEnvironmentVariables() {
   return true;
 }
 
-// Run all tests
 export async function runAllTests() {
   console.log("🚀 Starting comprehensive Cosmos DB tests...\n");
 
-  // Check environment variables first
   const envCheck = checkEnvironmentVariables();
   if (!envCheck) {
     console.log(
@@ -312,14 +282,12 @@ export async function runAllTests() {
     return false;
   }
 
-  // Test connection
   const connectionTest = await testCosmosConnection();
   if (!connectionTest) {
     console.log("❌ Connection test failed. Please check your credentials.");
     return false;
   }
 
-  // Test CRUD operations
   const crudTest = await testCRUDOperations();
   if (!crudTest) {
     console.log("❌ CRUD operations test failed.");

@@ -3,10 +3,8 @@ import cosmosService from "@/lib/cosmos";
 
 export async function GET() {
   try {
-    // Initialize Cosmos DB connection
     await cosmosService.initialize();
 
-    // Get all participants
     const participants = await cosmosService.getAllParticipants();
 
     return NextResponse.json(
@@ -33,13 +31,10 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    // Initialize Cosmos DB connection
     await cosmosService.initialize();
 
-    // Parse request body
     const body = await request.json();
 
-    // Basic validation
     if (!body.firstName || !body.lastName || !body.email) {
       return NextResponse.json(
         {
@@ -51,7 +46,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(body.email)) {
       return NextResponse.json(
@@ -64,7 +58,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Age validation if provided
     if (body.age && (body.age < 16 || body.age > 100)) {
       return NextResponse.json(
         {
@@ -76,7 +69,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create participant
     const newParticipant = await cosmosService.createParticipant({
       firstName: body.firstName.trim(),
       lastName: body.lastName.trim(),
@@ -101,7 +93,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error creating participant:", error);
 
-    // Handle specific Cosmos DB errors
     if (error instanceof Error && error.message.includes("duplicate")) {
       return NextResponse.json(
         {

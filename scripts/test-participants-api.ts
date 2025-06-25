@@ -32,7 +32,6 @@ interface ApiResponse<T = any> {
   count?: number;
 }
 
-// Test data
 const testParticipant = {
   firstName: "John",
   lastName: "Doe",
@@ -91,7 +90,6 @@ async function testParticipantsAPI() {
   let createdParticipantId: string | null = null;
 
   try {
-    // Test 1: Get all participants (should work even if empty)
     console.log("1️⃣ Testing GET /api/participants");
     const getAllResponse = await makeRequest(API_BASE_URL);
 
@@ -104,7 +102,6 @@ async function testParticipantsAPI() {
       `✅ Successfully fetched ${getAllResponse.count || 0} participants\n`
     );
 
-    // Test 2: Create a new participant
     console.log("2️⃣ Testing POST /api/participants");
     const createResponse = await makeRequest(
       API_BASE_URL,
@@ -127,7 +124,6 @@ async function testParticipantsAPI() {
       return;
     }
 
-    // Test 3: Get the specific participant
     console.log("3️⃣ Testing GET /api/participants/[id]");
     const getOneResponse = await makeRequest(
       `${API_BASE_URL}/${createdParticipantId}`
@@ -145,7 +141,6 @@ async function testParticipantsAPI() {
       `✅ Successfully fetched participant: ${getOneResponse.data?.firstName} ${getOneResponse.data?.lastName}\n`
     );
 
-    // Test 4: Update the participant
     console.log("4️⃣ Testing PUT /api/participants/[id]");
     const updateData = {
       firstName: "Jane",
@@ -166,7 +161,6 @@ async function testParticipantsAPI() {
 
     console.log(`✅ Successfully updated participant\n`);
 
-    // Test 5: Get the updated participant to verify changes
     console.log("5️⃣ Verifying participant update");
     const getUpdatedResponse = await makeRequest(
       `${API_BASE_URL}/${createdParticipantId}`
@@ -181,7 +175,6 @@ async function testParticipantsAPI() {
       );
     }
 
-    // Test 6: Test validation errors
     console.log("6️⃣ Testing validation errors");
     const invalidUpdateResponse = await makeRequest(
       `${API_BASE_URL}/${createdParticipantId}`,
@@ -200,7 +193,6 @@ async function testParticipantsAPI() {
       console.log(`⚠️  Validation might not be working as expected\n`);
     }
 
-    // Test 7: Test 404 error
     console.log("7️⃣ Testing 404 error handling");
     const notFoundResponse = await makeRequest(
       `${API_BASE_URL}/nonexistent-id`
@@ -215,7 +207,6 @@ async function testParticipantsAPI() {
       console.log(`⚠️  404 handling might not be working as expected\n`);
     }
 
-    // Test 8: Soft delete the participant
     console.log("8️⃣ Testing DELETE /api/participants/[id] (soft delete)");
     const deleteResponse = await makeRequest(
       `${API_BASE_URL}/${createdParticipantId}`,
@@ -229,7 +220,6 @@ async function testParticipantsAPI() {
 
     console.log(`✅ Successfully deactivated participant\n`);
 
-    // Test 9: Verify soft delete (participant should still exist but inactive)
     console.log("9️⃣ Verifying soft delete");
     const getDeletedResponse = await makeRequest(
       `${API_BASE_URL}/${createdParticipantId}`
@@ -246,7 +236,6 @@ async function testParticipantsAPI() {
       );
     }
 
-    // Test 10: Hard delete the participant (cleanup)
     console.log("🔟 Testing hard delete (cleanup)");
     const hardDeleteResponse = await makeRequest(
       `${API_BASE_URL}/${createdParticipantId}?hard=true`,
@@ -265,7 +254,6 @@ async function testParticipantsAPI() {
   } catch (error) {
     console.error("💥 Test suite failed:", error);
 
-    // Cleanup on error
     if (createdParticipantId) {
       console.log("🧹 Attempting cleanup...");
       await makeRequest(
@@ -276,7 +264,6 @@ async function testParticipantsAPI() {
   }
 }
 
-// Run the tests
 if (require.main === module) {
   console.log("Starting Participants API tests...");
   console.log(

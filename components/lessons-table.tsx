@@ -108,7 +108,6 @@ export default function LessonsTable() {
       const result = await response.json();
 
       if (result.success) {
-        // Remove the lesson from the local state
         setLessons(lessons.filter((lesson) => lesson.id !== lessonId));
       } else {
         setError(result.error || "Failed to delete lesson");
