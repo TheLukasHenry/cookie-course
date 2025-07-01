@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useRouter } from "next/navigation";
 
 interface NavItem {
   id: string;
@@ -21,7 +20,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   items = [
     { id: "hero", label: "Home", href: "#hero" },
     { id: "participants", label: "Participants", href: "#participants" },
-    { id: "lessons", label: "Lessons", href: "/lessons" },
+    { id: "lessons", label: "Lessons", href: "#lessons" },
     { id: "about", label: "About", href: "#about" },
     { id: "contact", label: "Contact", href: "#contact" },
   ],
@@ -31,7 +30,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,21 +102,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     setIsMobileMenuOpen(false);
   };
 
-  const handleNavigation = (href: string) => {
-    // If it's an anchor link, perform smooth scroll within the page
-    if (href.startsWith("#")) {
-      scrollToSection(href);
-    } else {
-      // Otherwise navigate using Next.js router
-      router.push(href);
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   const handleKeyDown = (event: React.KeyboardEvent, href: string) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleNavigation(href);
+      scrollToSection(href);
     }
   };
 
@@ -152,7 +139,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
               {items.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => handleNavigation(item.href)}
+                  onClick={() => scrollToSection(item.href)}
                   onKeyDown={(e) => handleKeyDown(e, item.href)}
                   className={`px-4 py-2 rounded-md text-sm lg:text-base font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background ${
                     activeSection === item.id
@@ -192,7 +179,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                   {items.map((item) => (
                     <button
                       key={item.id}
-                      onClick={() => handleNavigation(item.href)}
+                      onClick={() => scrollToSection(item.href)}
                       onKeyDown={(e) => handleKeyDown(e, item.href)}
                       className={`w-full text-left px-4 py-3 rounded-md text-base font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background ${
                         activeSection === item.id
