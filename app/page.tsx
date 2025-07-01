@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import NavigationBar from "@/components/ui/navigation-bar";
+import ParticipantsTable from "@/components/participants-table";
+import LessonsTable from "@/components/lessons-table";
+import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Users,
@@ -18,9 +22,6 @@ import {
 import { useBackgroundParallax } from "@/hooks/useParallax";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import ParticipantsTable from "@/components/participants-table";
-import LessonsTable from "@/components/lessons-table";
-import { Button } from "@/components/ui/button";
 
 // Enhanced animated text cycle component
 function AnimatedTextCycle({
@@ -676,7 +677,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      {/* NavigationBar moved to RootLayout */}
+      <NavigationBar />
 
       {/* Hero Section */}
       <EnhancedHeroSection />
