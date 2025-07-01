@@ -1,5 +1,3 @@
-'use client';
-
 import LessonsTable from "@/components/lessons-table";
 
 export const metadata = {
