@@ -78,25 +78,31 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     };
   }, [items]);
 
-  const scrollToSection = (href: string) => {
-    const targetId = href.replace("#", "");
-    const element = document.getElementById(targetId);
+  const handleNavigation = (href: string) => {
+    // Check if it's a hash link (section navigation) or a regular link
+    if (href.startsWith("#")) {
+      const targetId = href.replace("#", "");
+      const element = document.getElementById(targetId);
 
-    if (element) {
-      const offsetTop = element.offsetTop - 80;
+      if (element) {
+        const offsetTop = element.offsetTop - 80;
 
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
 
-      if (prefersReducedMotion) {
-        window.scrollTo(0, offsetTop);
-      } else {
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth",
-        });
+        if (prefersReducedMotion) {
+          window.scrollTo(0, offsetTop);
+        } else {
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
+        }
       }
+    } else {
+      // Regular page navigation
+      window.location.href = href;
     }
 
     setIsMobileMenuOpen(false);
@@ -105,7 +111,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
   const handleKeyDown = (event: React.KeyboardEvent, href: string) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      scrollToSection(href);
+      handleNavigation(href);
     }
   };
 
@@ -124,8 +130,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
-              onClick={() => scrollToSection("#hero")}
-              onKeyDown={(e) => handleKeyDown(e, "#hero")}
+              onClick={() => handleNavigation("/")}
+              onKeyDown={(e) => handleKeyDown(e, "/")}
               className="text-xl lg:text-2xl font-bold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-md px-2 py-1"
               aria-label="Cookie Course - Go to home"
             >
@@ -139,7 +145,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
               {items.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavigation(item.href)}
                   onKeyDown={(e) => handleKeyDown(e, item.href)}
                   className={`px-4 py-2 rounded-md text-sm lg:text-base font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background ${
                     activeSection === item.id
@@ -179,7 +185,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                   {items.map((item) => (
                     <button
                       key={item.id}
-                      onClick={() => scrollToSection(item.href)}
+                      onClick={() => handleNavigation(item.href)}
                       onKeyDown={(e) => handleKeyDown(e, item.href)}
                       className={`w-full text-left px-4 py-3 rounded-md text-base font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background ${
                         activeSection === item.id

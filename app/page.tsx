@@ -675,9 +675,19 @@ export default function Home() {
   const [showParticipants, setShowParticipants] = useState(false);
   const [showLessons, setShowLessons] = useState(false);
 
+  // Navigation items for the home page
+  const navItems = [
+    { id: "hero", label: "Home", href: "#hero" },
+    { id: "participants", label: "Participants", href: "#participants" },
+    { id: "lessons-section", label: "Lessons Overview", href: "#lessons" },
+    { id: "lessons-page", label: "All Lessons", href: "/lessons" },
+    { id: "about", label: "About", href: "#about" },
+    { id: "contact", label: "Contact", href: "#contact" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      <NavigationBar />
+      <NavigationBar items={navItems} />
 
       {/* Hero Section */}
       <EnhancedHeroSection />
